@@ -1,11 +1,9 @@
-package com.example.aboulineau.commercial;
+package com.example.aboulineau.commercial.Core;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 /**
  * Created by aboulineau on 30/05/2016.
