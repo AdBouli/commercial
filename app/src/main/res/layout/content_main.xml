@@ -15,5 +15,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gestion Clientèle"
+        android:id="@+id/titre"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Identifiant"
+        android:ems="10"
+        android:id="@+id/loginField"
+        android:layout_below="@+id/titre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clients"
+        android:id="@+id/btnValider"
+        android:layout_below="@+id/loginField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp" />
 </RelativeLayout>
