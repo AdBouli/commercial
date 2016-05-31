@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titleAddCommercial"
+        android:id="@+id/titre"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/nomField"
+        android:layout_below="@+id/titre"
+        android:layout_toLeftOf="@+id/titre"
+        android:layout_toStartOf="@+id/titre"
+        android:layout_marginTop="50dp"
+        android:hint="@string/nomComHint" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/prenomField"
+        android:layout_alignTop="@+id/nomField"
+        android:layout_toRightOf="@+id/titre"
+        android:layout_toEndOf="@+id/titre"
+        android:hint="@string/prenomComHint" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/telField"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/prenomField"
+        android:layout_alignLeft="@+id/prenomField"
+        android:layout_alignStart="@+id/prenomField"
+        android:hint="@string/telComHint" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/mailField"
+        android:hint="@string/mailComHint"
+        android:layout_alignTop="@+id/telField"
+        android:layout_alignLeft="@+id/nomField"
+        android:layout_alignStart="@+id/nomField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/loginField"
+        android:layout_below="@+id/mailField"
+        android:layout_alignLeft="@+id/mailField"
+        android:layout_alignStart="@+id/mailField"
+        android:layout_marginTop="50dp"
+        android:hint="@string/loginComHint" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addCom"
+        android:id="@+id/btnCreerCom"
+        android:layout_alignTop="@+id/loginField"
+        android:layout_alignLeft="@+id/telField"
+        android:layout_alignStart="@+id/telField" />
+
+
+</RelativeLayout>

@@ -26,6 +26,11 @@ public class Villes extends Database
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
     }
 
+    public Ville getVille()
+    {
+        return ville;
+    }
+
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -47,13 +52,17 @@ public class Villes extends Database
         Cursor c = DB.rawQuery("SELECT * FROM villes", null);
         ArrayList<Ville> villes = new ArrayList<Ville>();
         c.moveToFirst();
+        Ville uneVille = new Ville();
         do {
-            villes.add(new Ville(c.getInt(0), c.getString(1), c.getString(2)));
+            uneVille.setId(c.getInt(0));
+            uneVille.setNom(c.getString(1));
+            uneVille.setCode(c.getString(2));
+            villes.add(uneVille);
         } while (c.moveToNext());
         return villes;
     }
 
-    public Boolean getById(int id)
+    public Boolean setById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
         Boolean result;

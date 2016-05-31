@@ -30,6 +30,17 @@ public class Rdv extends Model
         comRdv = com;
     }
 
+    public Rdv ()
+    {
+        idRdv = 0;
+        dateRdv = "";
+        heureRdv = "";
+        notesRdv = "";
+        avisRdv = 0;
+        clientRdv = new Client();
+        comRdv = new Commercial();
+    }
+
     public int getId ()
     {
         return idRdv;

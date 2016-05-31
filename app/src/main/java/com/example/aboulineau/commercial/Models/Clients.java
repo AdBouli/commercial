@@ -22,12 +22,15 @@ public class Clients extends Database
     private static final String DB_NAME = "clientele.db";
 
     protected Client client;
-    protected Ville ville;
-    protected Commercial com;
 
     public Clients (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public Client getClient()
+    {
+        return client;
     }
 
     public long insert()
@@ -37,6 +40,7 @@ public class Clients extends Database
         values.put("prenomClient", client.getPrenom());
         values.put("mailClient", client.getMail());
         values.put("telClient", client.getTel());
+        values.put("adresseClient", client.getAdresse());
         values.put("villeClient", client.getVille().getId());
         values.put("comClient", client.getCom().getId());
         return DB.insert("clients", null, values);
@@ -49,6 +53,7 @@ public class Clients extends Database
         values.put("prenomClient", client.getPrenom());
         values.put("mailClient", client.getMail());
         values.put("telClient", client.getTel());
+        values.put("adresseClient", client.getAdresse());
         values.put("villeClient", client.getVille().getId());
         values.put("comClient", client.getCom().getId());
         return DB.update("clients", values, "idClient = " + client.getId(), null);
@@ -59,11 +64,18 @@ public class Clients extends Database
         Cursor c = DB.rawQuery("SELECT * FROM clients", null);
         ArrayList<Client> clients = new ArrayList<Client>();
         c.moveToFirst();
+        Client unClient = new Client();
         do
         {
-            getVilleById(c.getInt(5));
-            getComById(c.getInt(6));
-            clients.add(new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), ville, com));
+            unClient.setId(c.getInt(0));
+            unClient.setNom(c.getString(1));
+            unClient.setPrenom(c.getString(2));
+            unClient.setMail(c.getString(3));
+            unClient.setTel(c.getString(4));
+            unClient.setAdresse(c.getString(5));
+            setVilleById(c.getInt(6));
+            setComById(c.getInt(7));
+            clients.add(unClient);
         } while (c.moveToNext());
         return clients;
     }
@@ -80,10 +92,9 @@ public class Clients extends Database
             client.setPrenom(c.getString(2));
             client.setMail(c.getString(3));
             client.setTel(c.getString(4));
-            getVilleById(c.getInt(5));
-            client.setVille(ville);
-            getComById(c.getInt(6));
-            client.setCom(com);
+            client.setAdresse(c.getString(5));
+            setVilleById(c.getInt(6));
+            setComById(c.getInt(7));
         } else
         {
             result = false;
@@ -91,16 +102,16 @@ public class Clients extends Database
         return result;
     }
 
-    public Boolean getVilleById(int id)
+    public Boolean setVilleById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
         Boolean result;
         if (c.getCount() == 1)
         {
             result = true;
-            ville.setId(c.getInt(0));
-            ville.setNom(c.getString(1));
-            ville.setCode(c.getString(2));
+            client.getVille().setId(c.getInt(0));
+            client.getVille().setNom(c.getString(1));
+            client.getVille().setCode(c.getString(2));
         } else
         {
             result = false;
@@ -108,19 +119,19 @@ public class Clients extends Database
         return result;
     }
 
-    public Boolean getComById(int id)
+    public Boolean setComById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
         Boolean result;
         if (c.getCount() == 1)
         {
             result = true;
-            com.setId(c.getInt(0));
-            com.setNom(c.getString(1));
-            com.setPrenom(c.getString(2));
-            com.setMail(c.getString(3));
-            com.setTel(c.getString(4));
-            com.setLogin(c.getString(5));
+            client.getCom().setId(c.getInt(0));
+            client.getCom().setNom(c.getString(1));
+            client.getCom().setPrenom(c.getString(2));
+            client.getCom().setMail(c.getString(3));
+            client.getCom().setTel(c.getString(4));
+            client.getCom().setLogin(c.getString(5));
         } else
         {
             result = false;

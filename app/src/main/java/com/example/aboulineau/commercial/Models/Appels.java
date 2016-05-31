@@ -23,13 +23,15 @@ public class Appels extends Database
     private static final String DB_NAME = "clientele.db";
 
     protected Appel appel;
-    protected Client client;
-    protected Commercial com;
-    protected Ville ville;
 
     public Appels (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public Appel getAppel()
+    {
+        return appel;
     }
 
     public long insert()
@@ -61,11 +63,17 @@ public class Appels extends Database
         Cursor c = DB.rawQuery("SELECT * FROM rdvs", null);
         ArrayList<Appel> appels = new ArrayList<Appel>();
         c.moveToFirst();
+        Appel unAppel = new Appel();
         do
         {
-            getClientById(c.getInt(5));
-            getComById(c.getInt(6));
-            appels.add(new Appel(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com));
+            unAppel.setId(c.getInt(0));
+            unAppel.setDate(c.getString(1));
+            unAppel.setHeure(c.getString(2));
+            unAppel.setNotes(c.getString(3));
+            unAppel.setAvis(c.getInt(4));
+            setClientById(c.getInt(5));
+            setComById(c.getInt(6));
+            appels.add(unAppel);
         } while (c.moveToNext());
         return appels;
     }
@@ -82,10 +90,8 @@ public class Appels extends Database
             appel.setHeure(c.getString(2));
             appel.setNotes(c.getString(3));
             appel.setAvis(c.getInt(4));
-            getClientById(c.getInt(5));
-            appel.setClient(client);
-            getComById(c.getInt(6));
-            appel.setCom(com);
+            setClientById(c.getInt(5));
+            setComById(c.getInt(6));
         } else
         {
             result = false;
@@ -93,20 +99,20 @@ public class Appels extends Database
         return result;
     }
 
-    public Boolean getClientById(int id)
+    public Boolean setClientById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM clients WHERE idCli= " + id, null);
         Boolean result;
         if (c.getCount() == 1)
         {
             result = true;
-            client.setId(c.getInt(0));
-            client.setNom(c.getString(1));
-            client.setPrenom(c.getString(2));
-            client.setMail(c.getString(3));
-            client.setTel(c.getString(4));
-            getVilleById(c.getInt(5));
-            client.setVille(ville);
+            appel.getClient().setId(c.getInt(0));
+            appel.getClient().setNom(c.getString(1));
+            appel.getClient().setPrenom(c.getString(2));
+            appel.getClient().setMail(c.getString(3));
+            appel.getClient().setTel(c.getString(4));
+            appel.getClient().setAdresse(c.getString(5));
+            setVilleClientById(c.getInt(5));
         } else
         {
             result = false;
@@ -114,19 +120,19 @@ public class Appels extends Database
         return result;
     }
 
-    public Boolean getComById(int id)
+    public Boolean setComById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
         Boolean result;
         if (c.getCount() == 1)
         {
             result = true;
-            com.setId(c.getInt(0));
-            com.setNom(c.getString(1));
-            com.setPrenom(c.getString(2));
-            com.setMail(c.getString(3));
-            com.setTel(c.getString(4));
-            com.setLogin(c.getString(5));
+            appel.getCom().setId(c.getInt(0));
+            appel.getCom().setNom(c.getString(1));
+            appel.getCom().setPrenom(c.getString(2));
+            appel.getCom().setMail(c.getString(3));
+            appel.getCom().setTel(c.getString(4));
+            appel.getCom().setLogin(c.getString(5));
         } else
         {
             result = false;
@@ -134,16 +140,16 @@ public class Appels extends Database
         return result;
     }
 
-    public Boolean getVilleById(int id)
+    public Boolean setVilleClientById(int id)
     {
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
         Boolean result;
         if (c.getCount() == 1)
         {
             result = true;
-            ville.setId(c.getInt(0));
-            ville.setNom(c.getString(1));
-            ville.setCode(c.getString(2));
+            appel.getClient().getVille().setId(c.getInt(0));
+            appel.getClient().getVille().setNom(c.getString(1));
+            appel.getClient().getVille().setCode(c.getString(2));
         } else
         {
             result = false;

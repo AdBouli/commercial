@@ -60,6 +60,18 @@ public class SQLite extends SQLiteOpenHelper
     private static final String INSERT_COMMERCIAUX = "INSERT INTO commerciaux"
             + "(nomCom, prenomCom, mailCom, telCom, loginCom) VALUES"
             + "('Richardeau', 'Sebastien', 'richardeaus@gmail.com', '0612345678', 'seb')";
+    private static final String INSERT_VILLES      = "INSERT INTO villes"
+            + "(nomVille, codeVille) VALUES"
+            + "('Paris', '75000')";
+    private static final String INSERT_CLIENTS     = "INSERT INTO clients"
+            + "(nomClient, prenomClient, mailClient, telClient, adresseClient, villeClient, comClient) VALUES"
+            + "('client1', 'client1', 'mail1', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client2', 'client2', 'mail2', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client3', 'client3', 'mail3', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client4', 'client4', 'mail4', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client5', 'client5', 'mail5', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client6', 'client6', 'mail6', '0101010101', 'rue de Paris', '1', '1')"
+            + "('client7', 'client7', 'mail7', '0101010101', 'rue de Paris', '1', '1')";
 
     public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -75,6 +87,8 @@ public class SQLite extends SQLiteOpenHelper
         db.execSQL(CREATE_APPELS);
         // datas test
         db.execSQL(INSERT_COMMERCIAUX);
+        db.execSQL(INSERT_VILLES);
+        db.execSQL(INSERT_CLIENTS);
 
     }
 

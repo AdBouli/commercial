@@ -33,6 +33,19 @@ public class Commercial extends Model
         appelsCom = new ArrayList<Appel>();
     }
 
+    public Commercial ()
+    {
+        idCom = 0;
+        nomCom = "";
+        prenomCom = "";
+        mailCom = "";
+        telCom = "";
+        loginCom = "";
+        clientsCom = new ArrayList<Client>();
+        rdvsCom = new ArrayList<Rdv>();
+        appelsCom = new ArrayList<Appel>();
+    }
+
     public int getId ()
     {
         return idCom;

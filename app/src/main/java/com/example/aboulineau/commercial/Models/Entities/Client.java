@@ -15,20 +15,36 @@ public class Client extends Model
     private String prenomClient;
     private String mailClient;
     private String telClient;
+    private String adresseClient;
     private Ville villeClient;
     private Commercial comClient;
     private List<Rdv> rdvsClient;
     private List<Appel> appelsClient;
 
-    public Client (int id, String nom, String prenom, String mail, String tel, Ville ville, Commercial com)
+    public Client (int id, String nom, String prenom, String mail, String tel, String address, Ville ville, Commercial com)
     {
         idClient = id;
         nomClient = nom;
         prenomClient = prenom;
         mailClient = mail;
         telClient = tel;
+        adresseClient = address;
         villeClient = ville;
         comClient = com;
+        rdvsClient = new ArrayList<Rdv>();
+        appelsClient = new ArrayList<Appel>();
+    }
+
+    public Client ()
+    {
+        idClient = 0;
+        nomClient = "";
+        prenomClient = "";
+        mailClient = "";
+        telClient = "";
+        adresseClient = "";
+        villeClient = new Ville();
+        comClient = new Commercial();
         rdvsClient = new ArrayList<Rdv>();
         appelsClient = new ArrayList<Appel>();
     }
@@ -81,6 +97,16 @@ public class Client extends Model
     public void setTel (String telephone)
     {
         telClient = telephone;
+    }
+
+    public String getAdresse ()
+    {
+        return adresseClient;
+    }
+
+    public void setAdresse (String adresse)
+    {
+        adresseClient = adresse;
     }
 
     public Ville getVille ()

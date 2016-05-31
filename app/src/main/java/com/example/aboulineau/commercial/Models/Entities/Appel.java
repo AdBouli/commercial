@@ -28,6 +28,17 @@ public class Appel extends Model
         comAppel = com;
     }
 
+    public Appel ()
+    {
+        idAppel = 0;
+        dateAppel = "";
+        heureAppel = "";
+        notesAppel = "";
+        avisAppel = 0;
+        clientAppel = new Client();
+        comAppel = new Commercial();
+    }
+
     public int getId ()
     {
         return idAppel;

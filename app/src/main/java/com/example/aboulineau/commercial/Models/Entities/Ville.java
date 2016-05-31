@@ -24,6 +24,14 @@ public class Ville extends Model
         clientsVille = new ArrayList<Client>();
     }
 
+    public Ville ()
+    {
+        idVille = 0;
+        nomVille = "";
+        codeVille = "";
+        clientsVille = new ArrayList<Client>();
+    }
+
     public int getId ()
     {
         return idVille;
