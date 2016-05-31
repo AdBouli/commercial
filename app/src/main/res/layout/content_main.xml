@@ -18,20 +18,20 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Gestion Clientèle"
         android:id="@+id/titre"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/loginField"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginBottom="150dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Identifiant"
         android:ems="10"
         android:id="@+id/loginField"
-        android:layout_below="@+id/titre"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" />
+        android:autoText="false"
+        android:hint="Identifiant" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,6 +39,19 @@
         android:text="Lister mes clients"
         android:id="@+id/btnValider"
         android:layout_below="@+id/loginField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp" />
+        android:layout_alignLeft="@+id/titre"
+        android:layout_alignStart="@+id/titre" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Créer un compte"
+        android:id="@+id/btnCreerCom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="90dp" />
 </RelativeLayout>

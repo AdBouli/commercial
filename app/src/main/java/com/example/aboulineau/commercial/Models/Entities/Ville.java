@@ -13,16 +13,15 @@ public class Ville extends Model
 {
     private int idVille;
     private String nomVille;
-    private int codePostalVille;
+    private String codeVille;
     private List<Client> clientsVille;
 
-    public Ville (int id, String nom, int codePostal, List<Client> clients)
+    public Ville (int id, String nom, String code)
     {
         idVille = id;
         nomVille = nom;
-        codePostalVille = codePostal;
-        clientsVille = clients;
-        clients = new ArrayList<Client>();
+        codeVille = code;
+        clientsVille = new ArrayList<Client>();
     }
 
     public int getId ()
@@ -45,14 +44,14 @@ public class Ville extends Model
         nomVille = nom;
     }
 
-    public int getCodePostal ()
+    public String getCode ()
     {
-        return codePostalVille;
+        return codeVille;
     }
 
-    public void setCodePostal (int codePostal)
+    public void setCode (String code)
     {
-        codePostalVille = codePostal;
+        codeVille = code;
     }
 
     public List<Client> getClients ()

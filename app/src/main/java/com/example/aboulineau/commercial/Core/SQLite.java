@@ -19,9 +19,9 @@ public class SQLite extends SQLiteOpenHelper
             + "telCom TEXT NOT NULL,"
             + "loginCom TEXT NOT NULL)";
     private static final String CREATE_VILLES      = "CREATE TABLE villes ("
-            + "idVil INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + "nomVil TEXT NOT NULL,"
-            + "codeVil TEXT NOT NULL)";
+            + "idVille INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "nomVille TEXT NOT NULL,"
+            + "codeVille TEXT NOT NULL)";
     private static final String CREATE_CLIENTS     = "CREATE TABLE clients ("
             + "idCli INTEGER PRIMARY KEY AUTOINCREMENT,"
             + "nomCli TEXT NOT NULL,"
@@ -48,12 +48,18 @@ public class SQLite extends SQLiteOpenHelper
             + "avisAppel INTEGER NOT NULL,"
             + "clientAppel INTEGER NOT NULL,"
             + "comAppel INTEGER NOT NULL)";
+
     // DROP TABLES
     private static final String DROP_COMMERCIAUX = "DROP TABLE IF EXISTS commerciaux";
     private static final String DROP_VILLES      = "DROP TABLE IF EXISTS villes";
     private static final String DROP_CLIENTS     = "DROP TABLE IF EXISTS clients";
     private static final String DROP_RDVS        = "DROP TABLE IF EXISTS rdvs";
     private static final String DROP_APPELS      = "DROP TABLE IF EXISTS appels";
+
+    // INSERT TEST
+    private static final String INSERT_COMMERCIAUX = "INSERT INTO commerciaux"
+            + "(nomCom, prenomCom, mailCom, telCom, loginCom) VALUES"
+            + "('Richardeau', 'Sebastien', 'richardeaus@gmail.com', '0612345678', 'seb')";
 
     public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -67,6 +73,9 @@ public class SQLite extends SQLiteOpenHelper
         db.execSQL(CREATE_CLIENTS);
         db.execSQL(CREATE_RDVS);
         db.execSQL(CREATE_APPELS);
+        // datas test
+        db.execSQL(INSERT_COMMERCIAUX);
+
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

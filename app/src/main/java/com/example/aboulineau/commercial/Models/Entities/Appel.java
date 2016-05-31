@@ -10,14 +10,14 @@ import java.util.Date;
 public class Appel extends Model
 {
     private int idAppel;
-    private Date dateAppel;
+    private String dateAppel;
     private String heureAppel;
     private String notesAppel;
-    private Integer avisAppel;
+    private int avisAppel;
     private Client clientAppel;
     private Commercial comAppel;
 
-    public void Appel (int id, Date date, String heure, String notes, Integer avis, Client client, Commercial com)
+    public Appel (int id, String date, String heure, String notes, int avis, Client client, Commercial com)
     {
         idAppel = id;
         dateAppel = date;
@@ -38,12 +38,12 @@ public class Appel extends Model
         idAppel = id;
     }
 
-    public Date getDate ()
+    public String getDate ()
     {
         return dateAppel;
     }
 
-    public void setDate (Date date)
+    public void setDate (String date)
     {
         dateAppel = date;
     }
@@ -68,12 +68,12 @@ public class Appel extends Model
         notesAppel = notes;
     }
 
-    public Integer getAvis ()
+    public int getAvis ()
     {
         return avisAppel;
     }
 
-    public void setAvis (Integer avis)
+    public void setAvis (int avis)
     {
         avisAppel = avis;
     }

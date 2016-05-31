@@ -12,19 +12,19 @@ import java.util.Date;
 public class Rdv extends Model
 {
     private int idRdv;
-    private Date dateRdv;
+    private String dateRdv;
     private String heureRdv;
-    private String commentaireRdv;
-    private Boolean avisRdv;
+    private String notesRdv;
+    private Integer avisRdv;
     private Client clientRdv;
     private Commercial comRdv;
 
-    public Rdv (int id, Date date, String heure, String commentaire, Boolean avis, Client client, Commercial com)
+    public Rdv (int id, String date, String heure, String notes, Integer avis, Client client, Commercial com)
     {
         idRdv = id;
         dateRdv = date;
         heureRdv = heure;
-        commentaireRdv = commentaire;
+        notesRdv = notes;
         avisRdv = avis;
         clientRdv = client;
         comRdv = com;
@@ -40,12 +40,12 @@ public class Rdv extends Model
         idRdv = id;
     }
 
-    public Date getDate ()
+    public String getDate ()
     {
         return dateRdv;
     }
 
-    public void set (Date date)
+    public void setDate (String date)
     {
         dateRdv = date;
     }
@@ -60,22 +60,22 @@ public class Rdv extends Model
         heureRdv = heure;
     }
 
-    public String getCommentaire ()
+    public String getNotes ()
     {
-        return commentaireRdv;
+        return notesRdv;
     }
 
-    public void setCommentaire (String commentaire)
+    public void setNotes (String notes)
     {
-        commentaireRdv = commentaire;
+        notesRdv = notes;
     }
 
-    public Boolean getAvis ()
+    public Integer getAvis ()
     {
         return avisRdv;
     }
 
-    public void setAvis (Boolean avis)
+    public void setAvis (Integer avis)
     {
         avisRdv = avis;
     }
@@ -90,12 +90,12 @@ public class Rdv extends Model
         clientRdv = client;
     }
 
-    public Commercial getUser ()
+    public Commercial getCom ()
     {
         return comRdv;
     }
 
-    public void setUser (Commercial com)
+    public void setCom (Commercial com)
     {
         comRdv = com;
     }

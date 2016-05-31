@@ -14,19 +14,19 @@ public class Client extends Model
     private String nomClient;
     private String prenomClient;
     private String mailClient;
-    private String telephoneClient;
+    private String telClient;
     private Ville villeClient;
     private Commercial comClient;
     private List<Rdv> rdvsClient;
     private List<Appel> appelsClient;
 
-    public Client (int id, String nom, String prenom, String mail, String telephone, Ville ville, Commercial com)
+    public Client (int id, String nom, String prenom, String mail, String tel, Ville ville, Commercial com)
     {
         idClient = id;
         nomClient = nom;
         prenomClient = prenom;
         mailClient = mail;
-        telephoneClient = telephone;
+        telClient = tel;
         villeClient = ville;
         comClient = com;
         rdvsClient = new ArrayList<Rdv>();
@@ -73,14 +73,14 @@ public class Client extends Model
         mailClient = mail;
     }
 
-    public String getTelephone ()
+    public String getTel ()
     {
-        return telephoneClient;
+        return telClient;
     }
 
-    public void setTelephone (String telephone)
+    public void setTel (String telephone)
     {
-        telephoneClient = telephone;
+        telClient = telephone;
     }
 
     public Ville getVille ()
@@ -93,12 +93,12 @@ public class Client extends Model
         villeClient = ville;
     }
 
-    public Commercial getUser ()
+    public Commercial getCom ()
     {
         return comClient;
     }
 
-    public void setUser (Commercial com)
+    public void setCom (Commercial com)
     {
         comClient = com;
     }

@@ -52,9 +52,30 @@ public class Commerciaux extends Database
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux", null);
         ArrayList<Commercial> commerciaux = new ArrayList<Commercial>();
         c.moveToFirst();
-        while (c.moveToNext())
+        do
         {
+            commerciaux.add(new Commercial(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5)));
+        } while (c.moveToNext());
+        return commerciaux;
+    }
 
+    public Boolean getById(int id)
+    {
+        Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
+        Boolean result;
+        if (c.getCount() == 1)
+        {
+            result = true;
+            com.setId(c.getInt(0));
+            com.setNom(c.getString(1));
+            com.setPrenom(c.getString(2));
+            com.setMail(c.getString(3));
+            com.setTel(c.getString(4));
+            com.setLogin(c.getString(5));
+        } else
+        {
+            result = false;
         }
+        return result;
     }
 }
