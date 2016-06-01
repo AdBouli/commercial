@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         {
             public void onClick(View view)
             {
+                // Si l'identifiant existe
                 if (db_com.setByLogin(loginCom.getText().toString()))
                 {
                     Intent intent = new Intent(MainActivity.this, ListClientsActivity.class);

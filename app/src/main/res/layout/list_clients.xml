@@ -7,14 +7,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
+        android:text=""
+        android:id="@+id/titre"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/listClients"
+        android:id="@+id/titreListClient"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/searchClientField"
+        android:hint="@string/searchClientHint"
+        android:layout_below="@+id/titreListClient"
+        android:layout_alignLeft="@+id/titreListClient"
+        android:layout_alignStart="@+id/titreListClient" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxClient"
+        android:id="@+id/checkBoxCli"
+        android:checked="true"
+        android:layout_alignBottom="@+id/searchClientField"
+        android:layout_toRightOf="@+id/searchClientField"
+        android:layout_toEndOf="@+id/searchClientField" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxProspect"
+        android:id="@+id/checkBoxPro"
+        android:checked="true"
+        android:layout_alignTop="@+id/checkBoxCli"
+        android:layout_toRightOf="@+id/checkBoxCli"
+        android:layout_toEndOf="@+id/checkBoxCli" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/searchClient"
+        android:id="@+id/searchClient"
+        android:layout_alignBottom="@+id/checkBoxPro"
+        android:layout_toRightOf="@+id/checkBoxPro"
+        android:layout_toEndOf="@+id/checkBoxPro" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView" />
+        android:id="@+id/listClients"
+        android:layout_below="@+id/searchClientField"
+        android:layout_alignLeft="@+id/searchClientField"
+        android:layout_alignStart="@+id/searchClientField"
+        android:layout_alignRight="@+id/searchClient"
+        android:layout_alignEnd="@+id/searchClient" />
 
 </RelativeLayout>

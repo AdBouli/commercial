@@ -22,16 +22,9 @@ public class Appels extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
-    protected Appel appel;
-
     public Appels (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
-    }
-
-    public Appel getAppel()
-    {
-        return appel;
     }
 
     public long insert()
@@ -43,7 +36,10 @@ public class Appels extends Database
         values.put("avisRdv", appel.getAvis());
         values.put("clientRdv", appel.getClient().getId());
         values.put("comRdv", appel.getCom().getId());
-        return DB.insert("rdvs", null, values);
+        write();
+        long res = DB.insert("rdvs", null, values);
+        close();
+        return res;
     }
 
     public int update()
@@ -55,12 +51,17 @@ public class Appels extends Database
         values.put("avisRdv", appel.getAvis());
         values.put("clientRdv", appel.getClient().getId());
         values.put("comRdv", appel.getCom().getId());
-        return DB.update("rdvs", values, "idRdv = " + appel.getId(), null);
+        write();
+        int res = DB.update("rdvs", values, "idRdv = " + appel.getId(), null);
+        close();
+        return res;
     }
 
     public List<Appel> selectAll()
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs", null);
+        close();
         ArrayList<Appel> appels = new ArrayList<Appel>();
         c.moveToFirst();
         Appel unAppel = new Appel();
@@ -75,12 +76,15 @@ public class Appels extends Database
             setComById(c.getInt(6));
             appels.add(unAppel);
         } while (c.moveToNext());
+        c.close();
         return appels;
     }
 
     public Boolean getById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs WHERE idRdv = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -96,12 +100,15 @@ public class Appels extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setClientById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM clients WHERE idCli= " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -117,12 +124,15 @@ public class Appels extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setComById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -137,12 +147,15 @@ public class Appels extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setVilleClientById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -154,6 +167,7 @@ public class Appels extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 }

@@ -12,4 +12,9 @@
     <string name="mailComHint">eMail</string>
     <string name="telComHint">N° tel.</string>
 
+    <string name="listClients">Liste de vos clients :</string>
+    <string name="searchClientHint">Nom prénom</string>
+    <string name="checkBoxClient">Clients</string>
+    <string name="checkBoxProspect">Prospects</string>
+    <string name="searchClient">Rechercher</string>
 </resources>

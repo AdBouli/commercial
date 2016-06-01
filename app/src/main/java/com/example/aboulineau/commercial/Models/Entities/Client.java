@@ -179,4 +179,19 @@ public class Client extends Model
         appelsClient.clear();
     }
 
+    public String getNomComptet()
+    {
+        return prenomClient + " " + nomClient;
+    }
+
+    public String getAdresseComplete()
+    {
+        return adresseClient + " " + getVille().getCode() + " " + getVille().getNom();
+    }
+
+    public String getCoordonnees()
+    {
+        return getNomComptet() + " - " + getAdresseComplete() + " - " + mailClient + " - " + telClient;
+    }
+
 }

@@ -181,4 +181,19 @@ public class Commercial extends Model
         appelsCom.clear();
     }
 
+    public String getNomComplet()
+    {
+        return prenomCom + " " + nomCom;
+    }
+
+    public String testClients()
+    {
+        String res = "";
+        int s = clientsCom.size();
+        for (int i = 0; i < s; i++)
+        {
+            res += clientsCom.get(i).getNomComptet();
+        }
+        return res;
+    }
 }

@@ -22,16 +22,9 @@ public class Rdvs extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
-    protected Rdv rdv;
-
     public Rdvs (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
-    }
-
-    public Rdv getRdv()
-    {
-        return rdv;
     }
 
     public long insert()
@@ -43,7 +36,10 @@ public class Rdvs extends Database
         values.put("avisRdv", rdv.getAvis());
         values.put("clientRdv", rdv.getClient().getId());
         values.put("comRdv", rdv.getCom().getId());
-        return DB.insert("rdvs", null, values);
+        write();
+        long res = DB.insert("rdvs", null, values);
+        close();
+        return res;
     }
 
     public int update()
@@ -55,12 +51,17 @@ public class Rdvs extends Database
         values.put("avisRdv", rdv.getAvis());
         values.put("clientRdv", rdv.getClient().getId());
         values.put("comRdv", rdv.getCom().getId());
-        return DB.update("rdvs", values, "idRdv = " + rdv.getId(), null);
+        write();
+        int res = DB.update("rdvs", values, "idRdv = " + rdv.getId(), null);
+        close();
+        return res;
     }
 
     public List<Rdv> selectAll()
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs", null);
+        close();
         ArrayList<Rdv> rdvs = new ArrayList<Rdv>();
         c.moveToFirst();
         Rdv unRdv = new Rdv();
@@ -75,12 +76,15 @@ public class Rdvs extends Database
             setComById(c.getInt(6));
             rdvs.add(unRdv);
         } while (c.moveToNext());
+        c.close();
         return rdvs;
     }
 
     public Boolean setById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs WHERE idRdv = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -96,12 +100,15 @@ public class Rdvs extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setClientById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM clients WHERE idCli= " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -118,12 +125,15 @@ public class Rdvs extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setComById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -138,12 +148,15 @@ public class Rdvs extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 
     public Boolean setVilleById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -155,6 +168,7 @@ public class Rdvs extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 

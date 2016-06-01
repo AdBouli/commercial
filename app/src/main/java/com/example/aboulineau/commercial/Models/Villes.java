@@ -19,16 +19,9 @@ public class Villes extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
-    protected Ville ville;
-
     public Villes (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
-    }
-
-    public Ville getVille()
-    {
-        return ville;
     }
 
     public long insert()
@@ -36,7 +29,10 @@ public class Villes extends Database
         ContentValues values = new ContentValues();
         values.put("nomVille", ville.getNom());
         values.put("codeVille", ville.getCode());
-        return DB.insert("villes", null, values);
+        write();
+        long res = DB.insert("villes", null, values);
+        close();
+        return res;
     }
 
     public int update()
@@ -44,12 +40,17 @@ public class Villes extends Database
         ContentValues values = new ContentValues();
         values.put("nomVille", ville.getNom());
         values.put("codeVille", ville.getCode());
-        return DB.update("villes", values, "idVille = " + ville.getId(), null);
+        write();
+        int res = DB.update("villes", values, "idVille = " + ville.getId(), null);
+        close();
+        return res;
     }
 
     public ArrayList<Ville> selectAll()
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM villes", null);
+        close();
         ArrayList<Ville> villes = new ArrayList<Ville>();
         c.moveToFirst();
         Ville uneVille = new Ville();
@@ -59,12 +60,15 @@ public class Villes extends Database
             uneVille.setCode(c.getString(2));
             villes.add(uneVille);
         } while (c.moveToNext());
+        c.close();
         return villes;
     }
 
     public Boolean setById(int id)
     {
+        read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
+        close();
         Boolean result;
         if (c.getCount() == 1)
         {
@@ -76,6 +80,7 @@ public class Villes extends Database
         {
             result = false;
         }
+        c.close();
         return result;
     }
 }
