@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/titleAddCommercial"
-        android:id="@+id/titre"
+        android:id="@+id/nomTitre"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
@@ -20,9 +20,9 @@
         android:text=""
         android:ems="10"
         android:id="@+id/nomField"
-        android:layout_below="@+id/titre"
-        android:layout_toLeftOf="@+id/titre"
-        android:layout_toStartOf="@+id/titre"
+        android:layout_below="@+id/nomTitre"
+        android:layout_toLeftOf="@+id/nomTitre"
+        android:layout_toStartOf="@+id/nomTitre"
         android:layout_marginTop="50dp"
         android:hint="@string/nomComHint" />
 
@@ -34,8 +34,8 @@
         android:ems="10"
         android:id="@+id/prenomField"
         android:layout_alignTop="@+id/nomField"
-        android:layout_toRightOf="@+id/titre"
-        android:layout_toEndOf="@+id/titre"
+        android:layout_toRightOf="@+id/nomTitre"
+        android:layout_toEndOf="@+id/nomTitre"
         android:hint="@string/prenomComHint" />
 
     <EditText

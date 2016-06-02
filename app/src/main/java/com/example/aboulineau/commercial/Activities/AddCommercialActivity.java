@@ -43,11 +43,11 @@ public class AddCommercialActivity extends AppCompatActivity {
                     Toast.makeText(AddCommercialActivity.this, "L\'identifiant \'"+login+"\' existe déjà.", Toast.LENGTH_SHORT).show();
                 } else
                 {
-                    db_com.getCom().setNom(nom);
-                    db_com.getCom().setPrenom(prenom);
-                    db_com.getCom().setMail(mail);
-                    db_com.getCom().setTel(tel);
-                    db_com.getCom().setLogin(login);
+                    db_com.getThisCom().setNom(nom);
+                    db_com.getThisCom().setPrenom(prenom);
+                    db_com.getThisCom().setMail(mail);
+                    db_com.getThisCom().setTel(tel);
+                    db_com.getThisCom().setLogin(login);
                     long res = db_com.insert();
                     // Si la création du compte est un succès
                     if (res > 0)

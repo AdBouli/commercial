@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 // Si l'identifiant existe
-                if (db_com.setByLogin(loginCom.getText().toString()))
+                if (db_com.getByLogin(loginCom.getText().toString()))
                 {
                     Intent intent = new Intent(MainActivity.this, ListClientsActivity.class);
-                    intent.putExtra(EXTRA_ID_COM, db_com.getCom().getId());
+                    intent.putExtra(EXTRA_ID_COM, db_com.getThisCom().getId());
                     startActivity(intent);
                 } else
                 {

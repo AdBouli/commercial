@@ -23,15 +23,15 @@ public class SQLite extends SQLiteOpenHelper
             + "nomVille TEXT NOT NULL, "
             + "codeVille TEXT NOT NULL);";
     private static final String CREATE_CLIENTS     = "CREATE TABLE clients ("
-            + "idCli INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "nomCli TEXT NOT NULL, "
-            + "prenomCli TEXT NOT NULL, "
-            + "telCli TEXT NOT NULL, "
-            + "mailCli TEXT NOT NULL, "
-            + "adresseCli TEXT NOT NULL, "
-            + "villeCli INTEGER NOT NULL, "
-            + "typeCli INTEGER NOT NULL, "
-            + "comCli INTEGER NOT NULL);";
+            + "idClient INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "nomClient TEXT NOT NULL, "
+            + "prenomClient TEXT NOT NULL, "
+            + "telClient TEXT NOT NULL, "
+            + "mailClient TEXT NOT NULL, "
+            + "adresseClient TEXT NOT NULL, "
+            + "villeClient INTEGER NOT NULL, "
+            + "typeClient INTEGER NOT NULL, "
+            + "comClient INTEGER NOT NULL);";
     private static final String CREATE_RDVS        = "CREATE TABLE rdvs ("
             + "idRdv INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "dateRdv TEXT NOT NULL, "
@@ -66,15 +66,15 @@ public class SQLite extends SQLiteOpenHelper
             + "('Loudun', '86200'),"
             + "('Poitiers', '86000');";
     private static final String INSERT_CLIENTS     = "INSERT INTO clients"
-            + "(nomCli, prenomCli, mailCli, telCli, adresseCli, villeCli, typeCli, comCli) VALUES"
-            + "('Pelon', 'Elie', 'eliep@mail.com', '0549568432', 'rue de Marseille', '1', '1', '1'),"
-            + "('Main', 'Alexis', 'alexism@mail.com', '0549129546', 'avenue de Lyon', '2', '1', '2'),"
-            + "('Blanc', 'Mickael', 'mickaelb@mail.com', '0549778556', 'rue de Paris', '1', '0', '1'),"
-            + "('Boulineau', 'Adrien', 'adrienb@mail.com', '0549896532', 'rue de Bordeaux', '1', '1', '1'),"
-            + "('Moricet', 'Luc', 'lucmp@mail.com', '0549195632', 'chemin de Lille', '2', '0', '2'),"
-            + "('Landet', 'Jordan', 'jordanl@mail.com', '0549458963', 'place de Poitiers', '2', '1', '2'),"
-            + "('Brunet', 'Louis', 'louisb@mail.com', '0549546135', 'rue de Paris', '1', '0', '1'),"
-            + "('Cholon', 'Maxime', 'maximecb@mail.com', '0544645135', 'avenue de Paris', '1', '0', '1');";
+            + "(nomClient, prenomClient, telClient, mailClient, adresseClient, villeClient, typeClient, comClient) VALUES"
+            + "('Pelon', 'Elie', '0549568432', 'eliep@mail.com', 'rue de Marseille', '1', '1', '1'),"
+            + "('Main', 'Alexis', '0549129546', 'alexism@mail.com', 'avenue de Lyon', '2', '1', '2'),"
+            + "('Blanc', 'Mickael', '0549778556', 'mickaelb@mail.com', 'rue de Paris', '1', '0', '1'),"
+            + "('Boulineau', 'Adrien', '0549896532', 'adrienb@mail.com', 'rue de Bordeaux', '1', '1', '1'),"
+            + "('Moricet', 'Luc', '0549195632', 'lucmp@mail.com', 'chemin de Lille', '2', '0', '2'),"
+            + "('Landet', 'Jordan', '0549458963', 'jordanl@mail.com', 'place de Poitiers', '2', '1', '2'),"
+            + "('Brunet', 'Louis', '0549546135', 'louisb@mail.com', 'rue de Paris', '1', '0', '1'),"
+            + "('Cholon', 'Maxime', '0544645135', 'maximecb@mail.com', 'avenue de Paris', '1', '0', '1');";
 
     public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {

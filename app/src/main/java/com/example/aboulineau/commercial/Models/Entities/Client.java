@@ -13,26 +13,28 @@ public class Client extends Model
     private int idClient;
     private String nomClient;
     private String prenomClient;
-    private String mailClient;
     private String telClient;
+    private String mailClient;
     private String adresseClient;
     private Ville villeClient;
+    private String typeClient;
     private Commercial comClient;
     private List<Rdv> rdvsClient;
     private List<Appel> appelsClient;
 
-    public Client (int id, String nom, String prenom, String mail, String tel, String address, Ville ville, Commercial com)
+    public Client (int id, String nom, String prenom, String tel, String mail, String address, Ville ville, String type, Commercial com)
     {
         idClient = id;
         nomClient = nom;
         prenomClient = prenom;
-        mailClient = mail;
         telClient = tel;
+        mailClient = mail;
         adresseClient = address;
         villeClient = ville;
         comClient = com;
-        rdvsClient = new ArrayList<Rdv>();
-        appelsClient = new ArrayList<Appel>();
+        rdvsClient = new ArrayList<>();
+        appelsClient = new ArrayList<>();
+        typeClient = type;
     }
 
     public Client ()
@@ -40,13 +42,14 @@ public class Client extends Model
         idClient = 0;
         nomClient = "";
         prenomClient = "";
-        mailClient = "";
         telClient = "";
+        mailClient = "";
         adresseClient = "";
         villeClient = new Ville();
         comClient = new Commercial();
-        rdvsClient = new ArrayList<Rdv>();
-        appelsClient = new ArrayList<Appel>();
+        rdvsClient = new ArrayList<>();
+        appelsClient = new ArrayList<>();
+        typeClient = "";
     }
 
     public int getId ()
@@ -79,16 +82,6 @@ public class Client extends Model
         prenomClient = prenom;
     }
 
-    public String getMail ()
-    {
-        return mailClient;
-    }
-
-    public void setMail (String mail)
-    {
-        mailClient = mail;
-    }
-
     public String getTel ()
     {
         return telClient;
@@ -97,6 +90,16 @@ public class Client extends Model
     public void setTel (String telephone)
     {
         telClient = telephone;
+    }
+
+    public String getMail ()
+    {
+        return mailClient;
+    }
+
+    public void setMail (String mail)
+    {
+        mailClient = mail;
     }
 
     public String getAdresse ()
@@ -117,6 +120,16 @@ public class Client extends Model
     public void setVille (Ville ville)
     {
         villeClient = ville;
+    }
+
+    public String getType ()
+    {
+        return typeClient;
+    }
+
+    public void setType (String type)
+    {
+        typeClient = type;
     }
 
     public Commercial getCom ()

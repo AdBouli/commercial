@@ -6,27 +6,6 @@ package com.example.aboulineau.commercial.Core;
 public class Model
 {
 
-    protected String table;
-    protected String primary;
 
-    public String getTable()
-    {
-        return table;
-    }
-
-    public void setTable(String value)
-    {
-        table = value;
-    }
-
-    public String getPrimary()
-    {
-        return primary;
-    }
-
-    public void setPrimary(String value)
-    {
-        primary = value;
-    }
 
 }

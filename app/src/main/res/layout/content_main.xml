@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/titleMain"
-        android:id="@+id/titre"
+        android:id="@+id/nomTitre"
         android:layout_above="@+id/loginField"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp" />

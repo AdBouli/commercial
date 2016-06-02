@@ -22,20 +22,28 @@ public class Rdvs extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
+    protected Rdv thisRdv;
+
     public Rdvs (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        thisRdv = new Rdv();
+    }
+
+    public Rdv getThisRdv()
+    {
+        return thisRdv;
     }
 
     public long insert()
     {
         ContentValues values = new ContentValues();
-        values.put("dateRdv", rdv.getDate());
-        values.put("heureRdv", rdv.getHeure());
-        values.put("notesRdv", rdv.getNotes());
-        values.put("avisRdv", rdv.getAvis());
-        values.put("clientRdv", rdv.getClient().getId());
-        values.put("comRdv", rdv.getCom().getId());
+        values.put("dateRdv", thisRdv.getDate());
+        values.put("heureRdv", thisRdv.getHeure());
+        values.put("notesRdv", thisRdv.getNotes());
+        values.put("avisRdv", thisRdv.getAvis());
+        values.put("clientRdv", thisRdv.getClient().getId());
+        values.put("comRdv", thisRdv.getCom().getId());
         write();
         long res = DB.insert("rdvs", null, values);
         close();
@@ -45,130 +53,58 @@ public class Rdvs extends Database
     public int update()
     {
         ContentValues values = new ContentValues();
-        values.put("dateRdv", rdv.getDate());
-        values.put("heureRdv", rdv.getHeure());
-        values.put("notesRdv", rdv.getNotes());
-        values.put("avisRdv", rdv.getAvis());
-        values.put("clientRdv", rdv.getClient().getId());
-        values.put("comRdv", rdv.getCom().getId());
+        values.put("dateRdv", thisRdv.getDate());
+        values.put("heureRdv", thisRdv.getHeure());
+        values.put("notesRdv", thisRdv.getNotes());
+        values.put("avisRdv", thisRdv.getAvis());
+        values.put("clientRdv", thisRdv.getClient().getId());
+        values.put("comRdv", thisRdv.getCom().getId());
         write();
-        int res = DB.update("rdvs", values, "idRdv = " + rdv.getId(), null);
+        int res = DB.update("rdvs", values, "idRdv = " + thisRdv.getId(), null);
         close();
         return res;
     }
 
+    /**
+     * @return Collection de tous les rendez-vous
+     */
     public List<Rdv> selectAll()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM rdvs", null);
+        Cursor c = DB.rawQuery("SELECT * FROM rdvs R INNER JOIN clients C ON R.clientRdv = C.idClient INNER JOIN Ville V ON C.villeClient = V.idVille INNER JOIN Commerciaux O ON R.comRdv = O.idCom;", null);
         close();
         ArrayList<Rdv> rdvs = new ArrayList<Rdv>();
         c.moveToFirst();
-        Rdv unRdv = new Rdv();
         do
         {
-            unRdv.setId(c.getInt(0));
-            unRdv.setDate(c.getString(1));
-            unRdv.setHeure(c.getString(2));
-            unRdv.setNotes(c.getString(3));
-            unRdv.setAvis(c.getInt(4));
-            setClientById(c.getInt(5));
-            setComById(c.getInt(6));
-            rdvs.add(unRdv);
+            ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+            client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getString(14), com);
+            com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+            rdv = new Rdv(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
+            rdvs.add(rdv);
         } while (c.moveToNext());
         c.close();
         return rdvs;
     }
 
-    public Boolean setById(int id)
-    {
+    /**
+     * Charge le rendez-vous correspondant à l'id
+     * @param id id du rendez-vous à chargé
+     * @return True si rendez-vous chargé, false sinon
+     */
+    public Boolean setById(int id) {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM rdvs WHERE idRdv = " + id, null);
-        close();
-        Boolean result;
-        if (c.getCount() == 1)
+        Cursor c = DB.rawQuery("SELECT * FROM rdvs R INNER JOIN clients C ON R.clientRdv = C.idClient INNER JOIN Ville V ON C.villeClient = V.idVille INNER JOIN Commerciaux O ON R.comRdv = O.idCom WHERE idRdv = " + id, null);
+        Boolean result = (c.getCount() == 1);
+        if (result)
         {
-            result = true;
-            rdv.setId(c.getInt(0));
-            rdv.setDate(c.getString(1));
-            rdv.setHeure(c.getString(2));
-            rdv.setNotes(c.getString(3));
-            rdv.setAvis(c.getInt(4));
-            setClientById(c.getInt(5));
-            setComById(c.getInt(6));
-        } else
-        {
-            result = false;
+            ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+            client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getString(14), com);
+            com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+            thisRdv = new Rdv(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
         }
         c.close();
-        return result;
-    }
-
-    public Boolean setClientById(int id)
-    {
-        read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients WHERE idCli= " + id, null);
         close();
-        Boolean result;
-        if (c.getCount() == 1)
-        {
-            result = true;
-            rdv.getClient().setId(c.getInt(0));
-            rdv.getClient().setNom(c.getString(1));
-            rdv.getClient().setPrenom(c.getString(2));
-            rdv.getClient().setMail(c.getString(3));
-            rdv.getClient().setTel(c.getString(4));
-            rdv.getClient().setAdresse(c.getString(5));
-            setVilleById(c.getInt(6));
-            setComById(c.getInt(7));
-        } else
-        {
-            result = false;
-        }
-        c.close();
-        return result;
-    }
-
-    public Boolean setComById(int id)
-    {
-        read();
-        Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
-        close();
-        Boolean result;
-        if (c.getCount() == 1)
-        {
-            result = true;
-            rdv.getCom().setId(c.getInt(0));
-            rdv.getCom().setNom(c.getString(1));
-            rdv.getCom().setPrenom(c.getString(2));
-            rdv.getCom().setMail(c.getString(3));
-            rdv.getCom().setTel(c.getString(4));
-            rdv.getCom().setLogin(c.getString(5));
-        } else
-        {
-            result = false;
-        }
-        c.close();
-        return result;
-    }
-
-    public Boolean setVilleById(int id)
-    {
-        read();
-        Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
-        close();
-        Boolean result;
-        if (c.getCount() == 1)
-        {
-            result = true;
-            rdv.getClient().getVille().setId(c.getInt(0));
-            rdv.getClient().getVille().setNom(c.getString(1));
-            rdv.getClient().getVille().setCode(c.getString(2));
-        } else
-        {
-            result = false;
-        }
-        c.close();
         return result;
     }
 

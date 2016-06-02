@@ -19,16 +19,24 @@ public class Villes extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
+    protected Ville thisVille;
+
     public Villes (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        thisVille = new Ville();
+    }
+
+    public Ville getThisVille()
+    {
+        return thisVille;
     }
 
     public long insert()
     {
         ContentValues values = new ContentValues();
-        values.put("nomVille", ville.getNom());
-        values.put("codeVille", ville.getCode());
+        values.put("nomVille", thisVille.getNom());
+        values.put("codeVille", thisVille.getCode());
         write();
         long res = DB.insert("villes", null, values);
         close();
@@ -38,47 +46,46 @@ public class Villes extends Database
     public int update()
     {
         ContentValues values = new ContentValues();
-        values.put("nomVille", ville.getNom());
-        values.put("codeVille", ville.getCode());
+        values.put("nomVille", thisVille.getNom());
+        values.put("codeVille", thisVille.getCode());
         write();
-        int res = DB.update("villes", values, "idVille = " + ville.getId(), null);
+        int res = DB.update("villes", values, "idVille = " + thisVille.getId(), null);
         close();
         return res;
     }
 
+    /**
+     * @return Collection de toutes les villes
+     */
     public ArrayList<Ville> selectAll()
     {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM villes", null);
-        close();
         ArrayList<Ville> villes = new ArrayList<Ville>();
         c.moveToFirst();
-        Ville uneVille = new Ville();
         do {
-            uneVille.setId(c.getInt(0));
-            uneVille.setNom(c.getString(1));
-            uneVille.setCode(c.getString(2));
-            villes.add(uneVille);
+            ville = new Ville(c.getInt(0), c.getString(1), c.getString(2));
+            villes.add(ville);
         } while (c.moveToNext());
         c.close();
+        close();
         return villes;
     }
 
+    /**
+     * Charge la ville correspondant à l'id
+     * @param id id de la ville à charger
+     * @return Boolean
+     */
     public Boolean setById(int id)
     {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
         close();
-        Boolean result;
-        if (c.getCount() == 1)
+        Boolean result = (c.getCount() == 1);
+        if (result)
         {
-            result = true;
-            ville.setId(c.getInt(0));
-            ville.setNom(c.getString(1));
-            ville.setCode(c.getString(2));
-        } else
-        {
-            result = false;
+            thisVille = new Ville(c.getInt(0), c.getString(1), c.getString(2));
         }
         c.close();
         return result;

@@ -8,6 +8,7 @@ import com.example.aboulineau.commercial.Core.Database;
 import com.example.aboulineau.commercial.Core.SQLite;
 import com.example.aboulineau.commercial.Models.Entities.Client;
 import com.example.aboulineau.commercial.Models.Entities.Commercial;
+import com.example.aboulineau.commercial.Models.Entities.Ville;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +21,28 @@ public class Commerciaux extends Database
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "clientele.db";
 
+    protected Commercial thisCom;
+
     public Commerciaux (Context context)
     {
+
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        thisCom = new Commercial();
+    }
+
+    public Commercial getThisCom()
+    {
+        return thisCom;
     }
 
     public long insert()
     {
         ContentValues values = new ContentValues();
-        values.put("nomCom", com.getNom());
-        values.put("prenomCom", com.getPrenom());
-        values.put("mailCom", com.getMail());
-        values.put("telCom", com.getTel());
-        values.put("loginCom", com.getLogin());
+        values.put("nomCom", thisCom.getNom());
+        values.put("prenomCom", thisCom.getPrenom());
+        values.put("mailCom", thisCom.getMail());
+        values.put("telCom", thisCom.getTel());
+        values.put("loginCom", thisCom.getLogin());
         write();
         long res = DB.insert("commerciaux", null, values);
         close();
@@ -42,17 +52,20 @@ public class Commerciaux extends Database
     public int update()
     {
         ContentValues values = new ContentValues();
-        values.put("nomCom", com.getNom());
-        values.put("prenomCom", com.getPrenom());
-        values.put("mailCom", com.getMail());
-        values.put("telCom", com.getTel());
-        values.put("loginCom", com.getLogin());
+        values.put("nomCom", thisCom.getNom());
+        values.put("prenomCom", thisCom.getPrenom());
+        values.put("mailCom", thisCom.getMail());
+        values.put("telCom", thisCom.getTel());
+        values.put("loginCom", thisCom.getLogin());
         write();
-        int res = DB.update("commerciaux", values, "idCom = " + com.getId(), null);
+        int res = DB.update("commerciaux", values, "idCom = " + thisCom.getId(), null);
         close();
         return res;
     }
 
+    /**
+     * @return Collection de tous les commerciaux
+     */
     public ArrayList<Commercial> selectAll()
     {
         read();
@@ -63,12 +76,7 @@ public class Commerciaux extends Database
             c.moveToFirst();
             do
             {
-                com.setId(c.getInt(0));
-                com.setNom(c.getString(1));
-                com.setPrenom(c.getString(2));
-                com.setMail(c.getString(3));
-                com.setTel(c.getString(4));
-                com.setLogin(c.getString(5));
+                com = new Commercial(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5));
                 commerciaux.add(com);
             } while (c.moveToNext());
         }
@@ -77,90 +85,77 @@ public class Commerciaux extends Database
         return commerciaux;
     }
 
-    public Boolean setById(int id)
+    /**
+     * Charge le commercial correspondant à l'id
+     * @param id id du commercial à charger
+     * @return Boolean
+     */
+    public Boolean getById(int id)
     {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE idCom = " + id, null);
-        Boolean result;
-        if (c.getCount() == 1)
+        Boolean result = (c.getCount() == 1);
+        if (result)
         {
-            result = true;
             c.moveToFirst();
-            com.setId(c.getInt(0));
-            com.setNom(c.getString(1));
-            com.setPrenom(c.getString(2));
-            com.setMail(c.getString(3));
-            com.setTel(c.getString(4));
-            com.setLogin(c.getString(5));
-        } else
-        {
-            result = false;
+            thisCom = new Commercial(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5));
         }
         c.close();
         close();
         return result;
     }
 
-    public Boolean setByLogin(String login) {
+    /**
+     * Charge le commercial correspondant au login dans this.com
+     * @param login login du commercial a charger
+     * @return Boolean
+     */
+    public Boolean getByLogin(String login) {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM commerciaux WHERE loginCom = '" + login + "';", null);
-        Boolean result;
-        if (c.getCount() == 1)
+        Boolean result = (c.getCount() == 1);
+        if (result)
         {
-            result = true;
             c.moveToFirst();
-            com.setId(c.getInt(0));
-            com.setNom(c.getString(1));
-            com.setPrenom(c.getString(2));
-            com.setMail(c.getString(3));
-            com.setTel(c.getString(4));
-            com.setLogin(c.getString(5));
-        } else
-        {
-            result = false;
+            thisCom = new Commercial(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5));
         }
         c.close();
         close();
         return result;
     }
 
+    /**
+     * Charge les clients du commercial dans sa collection de client this
+     * @return int Le nombre de clients appartenant au commercial
+     */
     public int setClients()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients WHERE comCli = " + com.getId(), null);
+        Cursor c = DB.rawQuery("SELECT * FROM clients C INNER JOIN villes V ON C.villeClient = V.idVille WHERE comClient = " + thisCom.getId(), null);
         int res = c.getCount();
         List<Client> clients = new ArrayList<>();
         if (res > 0)
         {
             c.moveToFirst();
-            Cursor c2;
             do
             {
-                Client unClient = new Client();
-                client.setId(c.getInt(0));
-                client.setNom(c.getString(1));
-                client.setPrenom(c.getString(2));
-                client.setMail(c.getString(3));
-                client.setTel(c.getString(4));
-                client.setAdresse(c.getString(5));
-                c2 = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + c.getInt(6), null);
-                if (c2.getCount() == 1)
-                {
-                    c2.moveToFirst();
-                    ville.setId(c2.getInt(0));
-                    ville.setNom(c2.getString(1));
-                    ville.setCode(c2.getString(2));
-                }
-                client.setVille(ville);
-                c2.close();
+                ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
+                com.setId(c.getInt(8));
+                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getString(7), com);
                 clients.add(client);
             } while (c.moveToNext());
         }
+        thisCom.setClients(clients);
         c.close();
         close();
         return res;
     }
 
+    /**
+     * Vérifie si le login existe dans la base de données
+     * @param login à tester
+     * @return Boolean
+     */
     public Boolean loginExist(String login)
     {
         read();
