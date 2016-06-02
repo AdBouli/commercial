@@ -17,12 +17,12 @@ public class Client extends Model
     private String mailClient;
     private String adresseClient;
     private Ville villeClient;
-    private String typeClient;
+    private int typeClient;
     private Commercial comClient;
     private List<Rdv> rdvsClient;
     private List<Appel> appelsClient;
 
-    public Client (int id, String nom, String prenom, String tel, String mail, String address, Ville ville, String type, Commercial com)
+    public Client (int id, String nom, String prenom, String tel, String mail, String address, Ville ville, int type, Commercial com)
     {
         idClient = id;
         nomClient = nom;
@@ -49,7 +49,7 @@ public class Client extends Model
         comClient = new Commercial();
         rdvsClient = new ArrayList<>();
         appelsClient = new ArrayList<>();
-        typeClient = "";
+        typeClient = 0;
     }
 
     public int getId ()
@@ -122,12 +122,12 @@ public class Client extends Model
         villeClient = ville;
     }
 
-    public String getType ()
+    public int getType ()
     {
         return typeClient;
     }
 
-    public void setType (String type)
+    public void setType (int type)
     {
         typeClient = type;
     }

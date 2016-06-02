@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
-        android:id="@+id/nomTitre"
+        android:id="@+id/Titre"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -29,9 +29,10 @@
         android:ems="10"
         android:id="@+id/searchClientField"
         android:hint="@string/searchClientHint"
-        android:layout_alignBottom="@+id/checkBoxCli"
-        android:layout_toLeftOf="@+id/checkBoxCli"
-        android:layout_toStartOf="@+id/checkBoxCli" />
+        android:layout_below="@+id/titreListClient"
+        android:layout_toLeftOf="@+id/titreListClient"
+        android:layout_toStartOf="@+id/titreListClient"
+        android:layout_marginTop="40dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -39,10 +40,9 @@
         android:text="@string/checkBoxClient"
         android:id="@+id/checkBoxCli"
         android:checked="true"
-        android:layout_below="@+id/titreListClient"
+        android:layout_alignBottom="@+id/searchClientField"
         android:layout_alignLeft="@+id/titreListClient"
-        android:layout_alignStart="@+id/titreListClient"
-        android:layout_marginTop="30dp" />
+        android:layout_alignStart="@+id/titreListClient" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -59,9 +59,11 @@
         android:layout_height="wrap_content"
         android:text="@string/searchClient"
         android:id="@+id/searchClient"
-        android:layout_above="@+id/listClients"
-        android:layout_toRightOf="@+id/DepField"
-        android:layout_toEndOf="@+id/DepField" />
+        android:layout_alignTop="@+id/depField"
+        android:layout_toRightOf="@+id/depField"
+        android:layout_toEndOf="@+id/depField"
+        android:layout_marginLeft="61dp"
+        android:layout_marginStart="61dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -69,11 +71,11 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/depField"
-        android:layout_alignTop="@+id/searchClient"
-        android:layout_toRightOf="@+id/checkBoxPro"
-        android:layout_toEndOf="@+id/checkBoxPro"
         android:width="40dp"
-        android:hint="Dep." />
+        android:hint="Dep."
+        android:layout_above="@+id/listClients"
+        android:layout_toRightOf="@+id/titreListClient"
+        android:layout_toEndOf="@+id/titreListClient" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -84,15 +86,5 @@
         android:layout_alignStart="@+id/searchClientField"
         android:layout_alignRight="@+id/searchClient"
         android:layout_alignEnd="@+id/searchClient" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/contactTitre"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/nomTitre"
-        android:layout_toEndOf="@+id/nomTitre" />
 
 </RelativeLayout>

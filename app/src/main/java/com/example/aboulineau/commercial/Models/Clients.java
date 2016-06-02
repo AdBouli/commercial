@@ -116,10 +116,10 @@ public class Clients extends Database
         {
             if (i == 0)
             {
-                clauses_where += "AND (";
+                clauses_where += " AND (";
             }
-            clauses_where += "nomClient LIKE '%" + where_nom_premon[i] + "%' OR prenomClient LIKE '%" + where_nom_premon[i] + "'% ";
-            if (i == where_nom_premon.length)
+            clauses_where += "nomClient LIKE '%" + where_nom_premon[i] + "%' OR prenomClient LIKE '%" + where_nom_premon[i] + "%' ";
+            if (i == where_nom_premon.length - 1)
             {
                 clauses_where += ") ";
             }else

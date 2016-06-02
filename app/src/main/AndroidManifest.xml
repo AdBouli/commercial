@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".Activities.AddCommercialActivity" />
         <activity android:name=".Activities.ListClientsActivity" />
+        <activity android:name=".Activities.SearchClientsActivity" />
+        <activity android:name=".Activities.ViewClientActivity"></activity>
     </application>
 
 </manifest>

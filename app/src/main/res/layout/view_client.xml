@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/noms"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/creerRdv"
+        android:layout_toStartOf="@+id/creerRdv"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/adresse"
+        android:layout_alignTop="@+id/noms"
+        android:layout_toRightOf="@+id/creerRdv"
+        android:layout_toEndOf="@+id/creerRdv" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/coordonees"
+        android:layout_below="@+id/noms"
+        android:layout_alignRight="@+id/noms"
+        android:layout_alignEnd="@+id/noms"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/codePostal"
+        android:layout_alignTop="@+id/coordonees"
+        android:layout_alignLeft="@+id/adresse"
+        android:layout_alignStart="@+id/adresse" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/type"
+        android:layout_below="@+id/coordonees"
+        android:layout_alignRight="@+id/coordonees"
+        android:layout_alignEnd="@+id/coordonees"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/ville"
+        android:layout_alignTop="@+id/type"
+        android:layout_alignLeft="@+id/codePostal"
+        android:layout_alignStart="@+id/codePostal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/creerRdv"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/creerAppel"
+        android:layout_below="@+id/creerRdv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Derniers rendez-vous"
+        android:id="@+id/textView7"
+        android:layout_marginRight="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_alignTop="@+id/type"
+        android:layout_toLeftOf="@+id/type"
+        android:layout_toStartOf="@+id/type" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Derniers appels"
+        android:id="@+id/textView8"
+        android:layout_marginLeft="150dp"
+        android:layout_marginStart="150dp"
+        android:layout_alignTop="@+id/ville"
+        android:layout_toRightOf="@+id/ville"
+        android:layout_toEndOf="@+id/ville" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listRdvs"
+        android:layout_alignTop="@+id/creerRdv"
+        android:layout_toStartOf="@+id/type"
+        android:layout_toLeftOf="@+id/type" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listAppels"
+        android:layout_alignTop="@+id/creerRdv"
+        android:layout_toRightOf="@+id/ville"
+        android:layout_toEndOf="@+id/ville" />
+
+</RelativeLayout>
