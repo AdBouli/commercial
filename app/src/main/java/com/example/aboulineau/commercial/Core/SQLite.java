@@ -34,7 +34,7 @@ public class SQLite extends SQLiteOpenHelper
             + "comClient INTEGER NOT NULL);";
     private static final String CREATE_RDVS        = "CREATE TABLE rdvs ("
             + "idRdv INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "dateRdv TEXT NOT NULL, "
+            + "dateRdv DATE NOT NULL, "
             + "heureRdv TEXT NOT NULL, "
             + "notesRdv TEXT NOT NULL, "
             + "avisRdv INTEGER NOT NULL, "
@@ -42,7 +42,7 @@ public class SQLite extends SQLiteOpenHelper
             + "comRdv INTEGER NOT NULL);";
     private static final String CREATE_APPELS      = "CREATE TABLE appels ("
             + "idAppel INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "dateAppel TEXT NOT NULL, "
+            + "dateAppel DATE NOT NULL, "
             + "heureAppel TEXT NOT NULL, "
             + "notesAppel TEXT NOT NULL, "
             + "avisAppel INTEGER NOT NULL, "
@@ -75,6 +75,15 @@ public class SQLite extends SQLiteOpenHelper
             + "('Landet', 'Jordan', '0549458963', 'jordanl@mail.com', 'place de Poitiers', '2', '1', '2'),"
             + "('Brunet', 'Louis', '0549546135', 'louisb@mail.com', 'rue de Paris', '1', '0', '1'),"
             + "('Cholon', 'Maxime', '0544645135', 'maximecb@mail.com', 'avenue de Paris', '1', '0', '1');";
+    private static final String INSERT_RDVS        = "INSERT INTO rdvs"
+            + "(dateRdv, heureRdv, notesRdv, avisRdv, clientRdv, comRdv) VALUES"
+            + "('2016-06-02', '10:00', 'Premier contact', '5', '1', '1'),"
+            + "('2016-06-02', '11:00', 'Manque de confiance', '4', '1', '1'),"
+            + "('2016-06-03', '10:00', 'Bien, prise de commande', '7', '1', '1');";
+    private static final String INSERT_APPELS      = "INSERT INTO appels"
+            + "(dateAppel, heureAppel, notesAppel, avisAppel, clientAppel, comAppel) VALUES"
+            + "('2016-06-01', '11.30', 'Prise de rendez-vous', '8', '1', '1'),"
+            + "('2016-06-03', '14.30', 'Confirmation commande', '7', '1', '1');";
 
     public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -92,6 +101,8 @@ public class SQLite extends SQLiteOpenHelper
         db.execSQL(INSERT_COMMERCIAUX);
         db.execSQL(INSERT_VILLES);
         db.execSQL(INSERT_CLIENTS);
+        db.execSQL(INSERT_RDVS);
+        db.execSQL(INSERT_APPELS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

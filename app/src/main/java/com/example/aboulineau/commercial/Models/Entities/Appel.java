@@ -108,4 +108,9 @@ public class Appel extends Model
     {
         comAppel = com;
     }
+
+    public String getInfos()
+    {
+        return dateAppel + " " + heureAppel + " - " + notesAppel + " - avis: " + avisAppel;
+    }
 }

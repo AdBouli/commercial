@@ -27,6 +27,8 @@ public class Commerciaux extends Database
     {
 
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        table = "commerciaux";
+        primary = "idCom";
         thisCom = new Commercial();
     }
 
@@ -131,7 +133,7 @@ public class Commerciaux extends Database
     public int setClients()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients C INNER JOIN villes V ON C.villeClient = V.idVille WHERE comClient = " + thisCom.getId(), null);
+        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille WHERE comClient = " + thisCom.getId(), null);
         int res = c.getCount();
         List<Client> clients = new ArrayList<>();
         if (res > 0)
@@ -141,7 +143,7 @@ public class Commerciaux extends Database
             {
                 ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
                 com.setId(c.getInt(8));
-                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getString(7), com);
+                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
                 clients.add(client);
             } while (c.moveToNext());
         }

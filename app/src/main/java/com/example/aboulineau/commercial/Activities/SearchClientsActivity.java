@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +28,7 @@ public class SearchClientsActivity extends AppCompatActivity
     final String EXTRA_CHECK_CLIENT   = "typeClient";
     final String EXTRA_CHECK_PROSPECT = "typeProspect";
     final String EXTRA_DEP_FIELD      = "depVilleClient";
+    final String EXTRA_ID_CLIENT      = "idClient";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class SearchClientsActivity extends AppCompatActivity
 
         // Si les variables son passées
         if (intent != null) {
-            int id_com = intent.getIntExtra(EXTRA_ID_COM, 0);
+            final int id_com = intent.getIntExtra(EXTRA_ID_COM, 0);
             db_com.getById(id_com);
             Titre.setText(db_com.getThisCom().getNomComplet() + " - " + db_com.getThisCom().getMail() + " - " + db_com.getThisCom().getTel());
             // Affiche la liste des clients rechercher
@@ -57,7 +59,7 @@ public class SearchClientsActivity extends AppCompatActivity
             Boolean siProspect = intent.getBooleanExtra(EXTRA_CHECK_PROSPECT, true);
             String departement = intent.getStringExtra(EXTRA_DEP_FIELD);
 
-            List<Client> clients = db_client.search(search_noms, departement, id_com, siClient, siProspect);
+            final List<Client> clients = db_client.search(search_noms, departement, id_com, siClient, siProspect);
             List<String> clientsString = new ArrayList<>();
             for (Client client : clients)
             {
@@ -65,6 +67,16 @@ public class SearchClientsActivity extends AppCompatActivity
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clientsString);
             ListClients.setAdapter(adapter);
+
+            ListClients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(SearchClientsActivity.this, ViewClientActivity.class);
+                    intent.putExtra(EXTRA_ID_COM, id_com);
+                    intent.putExtra(EXTRA_ID_CLIENT, clients.get((int) id).getId());
+                    startActivity(intent);
+                }
+            });
 
         }
 

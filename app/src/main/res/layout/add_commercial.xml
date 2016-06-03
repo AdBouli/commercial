@@ -24,7 +24,7 @@
         android:layout_toLeftOf="@+id/nomTitre"
         android:layout_toStartOf="@+id/nomTitre"
         android:layout_marginTop="50dp"
-        android:hint="@string/nomComHint" />
+        android:hint="@string/nomHint" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_alignTop="@+id/nomField"
         android:layout_toRightOf="@+id/nomTitre"
         android:layout_toEndOf="@+id/nomTitre"
-        android:hint="@string/prenomComHint" />
+        android:hint="@string/prenomHint" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
         android:layout_below="@+id/prenomField"
         android:layout_alignLeft="@+id/prenomField"
         android:layout_alignStart="@+id/prenomField"
-        android:hint="@string/telComHint" />
+        android:hint="@string/telHint" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/mailField"
-        android:hint="@string/mailComHint"
+        android:hint="@string/mailHint"
         android:layout_alignTop="@+id/telField"
         android:layout_alignLeft="@+id/nomField"
         android:layout_alignStart="@+id/nomField" />

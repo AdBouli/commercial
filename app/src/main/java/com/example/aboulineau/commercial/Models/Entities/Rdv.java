@@ -110,4 +110,9 @@ public class Rdv extends Model
     {
         comRdv = com;
     }
+
+    public String getInfos()
+    {
+        return dateRdv + " " + heureRdv + " - " + notesRdv + " - avis: " + avisRdv;
+    }
 }

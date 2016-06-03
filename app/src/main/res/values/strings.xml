@@ -7,14 +7,34 @@
     <string name="addCom">Créer un compte</string>
 
     <string name="titleAddCommercial">Création d\'un compte :</string>
-    <string name="nomComHint">Nom</string>
-    <string name="prenomComHint">Prénom</string>
-    <string name="mailComHint">eMail</string>
-    <string name="telComHint">N° tel.</string>
+    <string name="nomHint">Nom</string>
+    <string name="prenomHint">Prénom</string>
+    <string name="mailHint">eMail</string>
+    <string name="telHint">N° tel.</string>
+    <string name="adresseHint">Adresse</string>
 
     <string name="listClients">Liste de vos clients :</string>
     <string name="searchClientHint">Nom prénom</string>
     <string name="checkBoxClient">Clients</string>
     <string name="checkBoxProspect">Prospects</string>
     <string name="searchClient">Rechercher</string>
+
+    <string name="modifyClient">Modifier client</string>
+    <string name="lastRdv">Derniers rendez-vous :</string>
+    <string name="lastAppel">Derniers appels :</string>
+    <string name="addRdv">Créer rendez-vous</string>
+    <string name="addAppel">Créer appel</string>
+
+    <string name="dateHint">Date (01/01/2017)</string>
+    <string name="heureHint">Heure (14:45)</string>
+    <string name="notesHint">Notes</string>
+    <string name="avisHint">Avis (/10)</string>
+    <string name="up">Modifier</string>
+    <string name="del">Supprimer</string>
+
+    <string name="titreCreerVille">Créer une ville</string>
+    <string name="addVille">Créer ville</string>
+    <string name="codeHint">Code postal</string>
+
+    <string name="client">Client</string>
 </resources>

@@ -24,6 +24,8 @@ public class Villes extends Database
     public Villes (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        table = "villes";
+        primary = "idVille";
         thisVille = new Ville();
     }
 
@@ -60,8 +62,8 @@ public class Villes extends Database
     public ArrayList<Ville> selectAll()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM villes", null);
-        ArrayList<Ville> villes = new ArrayList<Ville>();
+        Cursor c = DB.rawQuery("SELECT * FROM villes ORDER BY nomVille ASC", null);
+        ArrayList<Ville> villes = new ArrayList<>();
         c.moveToFirst();
         do {
             ville = new Ville(c.getInt(0), c.getString(1), c.getString(2));
@@ -81,13 +83,14 @@ public class Villes extends Database
     {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);
-        close();
         Boolean result = (c.getCount() == 1);
         if (result)
         {
+            c.moveToFirst();
             thisVille = new Ville(c.getInt(0), c.getString(1), c.getString(2));
         }
         c.close();
+        close();
         return result;
     }
 }

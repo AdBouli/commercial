@@ -36,8 +36,12 @@ public class Database {
         DB = SQL.getReadableDatabase();
     }
 
-    public int delete(String table, String primary, int id) {
-        return DB.delete(table, primary + " = " + id, null);
+    public int delete(int id) {
+        write();
+        int res = DB.delete(table, primary + " = " + id, null);
+        close();
+        return res;
+
     }
 
     public void write() {

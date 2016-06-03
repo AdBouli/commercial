@@ -26,6 +26,8 @@ public class Clients extends Database
     public Clients (Context context)
     {
         SQL = new SQLite(context, DB_NAME, null, DB_VERSION);
+        table = "clients";
+        primary = "idClient";
         thisClient = new Client();
     }
 
@@ -69,16 +71,19 @@ public class Clients extends Database
     public List<Client> selectAll()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients C INNER JOIN villes V ON C.villeClient = V.idVille INNER JOIN commerciaux O ON C.comClient = O.idCom;", null);
+        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comClient = idCom;", null);
         ArrayList<Client> clients = new ArrayList<>();
         c.moveToFirst();
-        do
+        if (c.getCount() > 0)
         {
-            ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
-            com = new Commercial(c.getInt(12), c.getString(13), c.getString(14), c.getString(15), c.getString(16), c.getString(17));
-            client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getString(7), com);
-            clients.add(client);
-        } while (c.moveToNext());
+            do
+            {
+                ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
+                com = new Commercial(c.getInt(12), c.getString(13), c.getString(14), c.getString(15), c.getString(16), c.getString(17));
+                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
+                clients.add(client);
+            } while (c.moveToNext());
+        }
         c.close();
         close();
         return clients;
@@ -92,13 +97,14 @@ public class Clients extends Database
     public Boolean getById(int id)
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients C INNER JOIN villes V ON C.villeClient = V.idVille INNER JOIN commerciaux O ON C.comClient = O.idCom WHERE idCli = " + id, null);
+        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comClient = idCom WHERE idClient = " + id, null);
         Boolean result = (c.getCount() == 1);
         if (result)
         {
+            c.moveToFirst();
             ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
             com = new Commercial(c.getInt(12), c.getString(13), c.getString(14), c.getString(15), c.getString(16), c.getString(17));
-            thisClient = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getString(7), com);
+            thisClient = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
         }
         c.close();
         close();
@@ -137,15 +143,18 @@ public class Clients extends Database
         }
         clauses_where += "AND codeVille LIKE '" + departement + "%' ";
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients C INNER JOIN villes V ON C.villeClient = V.idVille WHERE " + clauses_where, null);
+        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille WHERE " + clauses_where, null);
         ArrayList<Client> clients = new ArrayList<>();
         c.moveToFirst();
-        do
+        if (c.getCount() > 0)
         {
-            ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
-            client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getString(7), com);
-            clients.add(client);
-        } while (c.moveToNext());
+            do
+            {
+                ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
+                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
+                clients.add(client);
+            } while (c.moveToNext());
+        }
         c.close();
         close();
         return clients;

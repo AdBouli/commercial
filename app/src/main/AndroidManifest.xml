@@ -21,7 +21,12 @@
         <activity android:name=".Activities.AddCommercialActivity" />
         <activity android:name=".Activities.ListClientsActivity" />
         <activity android:name=".Activities.SearchClientsActivity" />
-        <activity android:name=".Activities.ViewClientActivity"></activity>
+        <activity android:name=".Activities.ViewClientActivity" />
+        <activity android:name=".Activities.ViewRdvActivity" />
+        <activity android:name=".Activities.ViewAppelActivity" />
+        <activity android:name=".Activities.AddAppelActivity" />
+        <activity android:name=".Activities.AddRdvActivity" />
+        <activity android:name=".Activities.UpClientActivity"></activity>
     </application>
 
 </manifest>

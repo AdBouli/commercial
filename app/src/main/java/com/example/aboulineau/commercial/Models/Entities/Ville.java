@@ -87,4 +87,9 @@ public class Ville extends Model
         clientsVille.clear();
     }
 
+    public String getNomComplet()
+    {
+        return nomVille + " - " + codeVille;
+    }
+
 }
