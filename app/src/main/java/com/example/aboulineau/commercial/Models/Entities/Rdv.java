@@ -53,12 +53,14 @@ public class Rdv extends Model
 
     public String getDate ()
     {
-        return dateRdv;
+        String dateCut[] = dateRdv.split("-");
+        return dateCut[2] + "/" + dateCut[1] + "/" + dateCut[0];
     }
 
     public void setDate (String date)
     {
-        dateRdv = date;
+        String[] dateCut = date.split("/");
+        dateRdv = dateCut[2] + "-" + dateCut[1] + "-" + dateCut[0];
     }
 
     public String getHeure ()

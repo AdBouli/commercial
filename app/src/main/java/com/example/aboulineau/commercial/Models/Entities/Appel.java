@@ -51,12 +51,14 @@ public class Appel extends Model
 
     public String getDate ()
     {
-        return dateAppel;
+        String dateCut[] = dateAppel.split("-");
+        return dateCut[2] + "/" + dateCut[1] + "/" + dateCut[0];
     }
 
     public void setDate (String date)
     {
-        dateAppel = date;
+        String[] dateCut = date.split("/");
+        dateAppel = dateCut[2] + "-" + dateCut[1] + "-" + dateCut[0];
     }
 
     public String getHeure ()
