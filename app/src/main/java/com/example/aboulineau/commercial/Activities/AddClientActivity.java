@@ -20,11 +20,10 @@ import com.example.aboulineau.commercial.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpClientActivity extends AppCompatActivity
-{
+public class AddClientActivity extends AppCompatActivity {
+
 
     final String EXTRA_ID_COM    = "idCom";
-    final String EXTRA_ID_CLIENT = "idClient";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +41,11 @@ public class UpClientActivity extends AppCompatActivity
         final EditText NomVilleField  = (EditText)findViewById(R.id.nomVilleField);
         final EditText CodeVilleField = (EditText)findViewById(R.id.codePostalVilleField);
         final Button   BtnCreerVille  = (Button)findViewById(R.id.creerVille);
-        final Button   BtnUpClient    = (Button)findViewById(R.id.addClient);
-        final Button   BtnDelClient   = (Button)findViewById(R.id.delClient);
+        final Button   BtnCreerClient = (Button)findViewById(R.id.addClient);
         final ListView ListVilles     = (ListView)findViewById(R.id.listVilles);
 
         final Clients db_client = new Clients(this);
-        final Villes  db_ville  = new Villes(this);
+        final Villes db_ville  = new Villes(this);
 
         // Liste des villes
         final List<Ville> villes = db_ville.selectAll();
@@ -64,19 +62,7 @@ public class UpClientActivity extends AppCompatActivity
 
         if (intent != null) {
             final int id_com = intent.getIntExtra(EXTRA_ID_COM, 0);
-            final int id_client = intent.getIntExtra(EXTRA_ID_CLIENT, 0);
 
-            // Remplissage des champs
-            if (db_client.getById(id_client)) {
-                NomField.setText(db_client.getThisClient().getNom());
-                PrenomField.setText(db_client.getThisClient().getPrenom());
-                TelField.setText(db_client.getThisClient().getTel());
-                MailField.setText(db_client.getThisClient().getMail());
-                AdresseField.setText(db_client.getThisClient().getAdresse());
-                db_ville.setById(db_client.getThisClient().getVille().getId());
-                VilleSelected.setId(db_ville.getThisVille().getId());
-                VilleField.setText(db_ville.getThisVille().getNomComplet());
-            }
             // Changement de ville
             ListVilles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -98,24 +84,24 @@ public class UpClientActivity extends AppCompatActivity
                         VilleSelected.setId(db_ville.getThisVille().getId());
                         VilleField.setText(db_ville.getThisVille().getNomComplet());
                     } else {
-                        Toast.makeText(UpClientActivity.this, "Echec dans la création de la ville", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddClientActivity.this, "Echec dans la création de la ville", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
-            // Modifier client
-            BtnUpClient.setOnClickListener(new View.OnClickListener() {
+            // Créer client
+            BtnCreerClient.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     String nomC = NomField.getText().toString();
                     String prenomC = PrenomField.getText().toString();
                     String telC = TelField.getText().toString();
                     String mailC = MailField.getText().toString();
-                    db_client.getById(id_client);
+                    String adresseC = AdresseField.getText().toString();
                     db_client.getThisClient().setNom(nomC);
-                    db_client.getThisClient().setPrenom(nomC);
-                    db_client.getThisClient().setTel(nomC);
-                    db_client.getThisClient().setMail(nomC);
-                    db_client.getThisClient().getVille().setId(VilleSelected.getId());
+                    db_client.getThisClient().setPrenom(prenomC);
+                    db_client.getThisClient().setTel(telC);
+                    db_client.getThisClient().setMail(mailC);
+                    db_client.getThisClient().setMail(adresseC);
                     if (ClientCheckBox.isChecked())
                     {
                         db_client.getThisClient().setType(1);
@@ -123,31 +109,16 @@ public class UpClientActivity extends AppCompatActivity
                     {
                         db_client.getThisClient().setType(0);
                     }
-                    if (db_client.update() > 0)
+                    db_client.getThisClient().getVille().setId(VilleSelected.getId());
+                    db_client.getThisClient().getCom().setId(id_com);
+                    if (db_client.insert() > 0)
                     {
-                        Intent intent = new Intent(UpClientActivity.this, ViewClientActivity.class);
-                        intent.putExtra(EXTRA_ID_COM, id_com);
-                        intent.putExtra(EXTRA_ID_CLIENT, id_client);
-                        startActivity(intent);
-                    } else
-                    {
-                        Toast.makeText(UpClientActivity.this, "Echec dans la modification du client", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-            // Supprimer client
-            BtnDelClient.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    db_client.getById(id_client);
-                    if (db_client.delete(id_client) > 0)
-                    {
-                        Intent intent = new Intent(UpClientActivity.this, ListClientsActivity.class);
+                        Intent intent = new Intent(AddClientActivity.this, ListClientsActivity.class);
                         intent.putExtra(EXTRA_ID_COM, id_com);
                         startActivity(intent);
                     } else
                     {
-                        Toast.makeText(UpClientActivity.this, "Echec dans la suppression du client", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddClientActivity.this, "Echec dans la création du client", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

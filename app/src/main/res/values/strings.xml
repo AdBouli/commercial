@@ -17,7 +17,10 @@
     <string name="searchClientHint">Nom prénom</string>
     <string name="checkBoxClient">Clients</string>
     <string name="checkBoxProspect">Prospects</string>
+    <string name="depHint">Dep.</string>
     <string name="searchClient">Rechercher</string>
+    <string name="stat">Statistiques</string>
+    <string name="btnCreerClient">Nouveau Client/Prospect</string>
 
     <string name="modifyClient">Modifier client</string>
     <string name="lastRdv">Derniers rendez-vous :</string>
@@ -29,6 +32,7 @@
     <string name="heureHint">Heure (14:45)</string>
     <string name="notesHint">Notes</string>
     <string name="avisHint">Avis (/10)</string>
+    <string name="add">Créer</string>
     <string name="up">Modifier</string>
     <string name="del">Supprimer</string>
 
