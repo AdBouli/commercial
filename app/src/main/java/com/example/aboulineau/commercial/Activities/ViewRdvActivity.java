@@ -47,7 +47,7 @@ public class ViewRdvActivity extends AppCompatActivity
             DateField.setText(db_rdv.getThisRdv().getDate());
             HeureField.setText(db_rdv.getThisRdv().getHeure());
             NotesField.setText(db_rdv.getThisRdv().getNotes());
-            AvisField.setText(db_rdv.getThisRdv().getAvis());
+            AvisField.setText(db_rdv.getThisRdv().getAvis().toString());
 
             BtnUpRdv.setOnClickListener(new View.OnClickListener() {
                 @Override

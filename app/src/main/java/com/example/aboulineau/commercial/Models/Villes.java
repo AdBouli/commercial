@@ -88,7 +88,7 @@ public class Villes extends Database
      * @param id id de la ville à charger
      * @return Boolean
      */
-    public Boolean setById(int id)
+    public Boolean getById(int id)
     {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM villes WHERE idVille = " + id, null);

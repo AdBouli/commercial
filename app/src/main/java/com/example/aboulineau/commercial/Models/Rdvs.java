@@ -111,6 +111,7 @@ public class Rdvs extends Database
         Boolean result = (c.getCount() == 1);
         if (result)
         {
+            c.moveToFirst();
             ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
             client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
             com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
@@ -159,6 +160,7 @@ public class Rdvs extends Database
         String dateAjd = Calendar.getInstance().toString();
         String dateMois = dateRef.toString();
         read();
+        // Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom ", null);
         Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom WHERE comRdv = " + idCom + " AND typeClient = 1  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "' AND avisRdv > (SELECT avg(avisRdv) FROM rdvs WHERE comRdv = 0 AND typeClient = 1  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Rdv> rdvs = new ArrayList<>();
         if (c.getCount() > 0)

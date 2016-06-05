@@ -73,7 +73,7 @@ public class UpClientActivity extends AppCompatActivity
                 TelField.setText(db_client.getThisClient().getTel());
                 MailField.setText(db_client.getThisClient().getMail());
                 AdresseField.setText(db_client.getThisClient().getAdresse());
-                db_ville.setById(db_client.getThisClient().getVille().getId());
+                db_ville.getById(db_client.getThisClient().getVille().getId());
                 VilleSelected.setId(db_ville.getThisVille().getId());
                 VilleField.setText(db_ville.getThisVille().getNomComplet());
             }

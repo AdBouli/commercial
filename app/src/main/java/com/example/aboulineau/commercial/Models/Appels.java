@@ -115,6 +115,7 @@ public class Appels extends Database
         Boolean result = (c.getCount() == 1);
         if (result)
         {
+            c.moveToFirst();
             ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
             client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
             com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));

@@ -49,6 +49,7 @@ public class Clients extends Database
         values.put("mailClient", thisClient.getMail());
         values.put("adresseClient", thisClient.getAdresse());
         values.put("villeClient", thisClient.getVille().getId());
+        values.put("typeClient", thisClient.getType());
         values.put("comClient", thisClient.getCom().getId());
         write();
         long res = DB.insert("clients", null, values);
@@ -69,6 +70,7 @@ public class Clients extends Database
         values.put("mailClient", thisClient.getMail());
         values.put("adresseClient", thisClient.getAdresse());
         values.put("villeClient", thisClient.getVille().getId());
+        values.put("typeClient", thisClient.getType());
         values.put("comClient", thisClient.getCom().getId());
         write();
         int res = DB.update("clients", values, "idClient = " + thisClient.getId(), null);

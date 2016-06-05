@@ -111,7 +111,9 @@ public class AddClientActivity extends AppCompatActivity {
                     }
                     db_client.getThisClient().getVille().setId(VilleSelected.getId());
                     db_client.getThisClient().getCom().setId(id_com);
-                    if (db_client.insert() > 0)
+
+                    Toast.makeText(AddClientActivity.this, Long.toString(db_client.insert()), Toast.LENGTH_SHORT).show();
+                    /*if (db_client.insert() > 0)
                     {
                         Intent intent = new Intent(AddClientActivity.this, ListClientsActivity.class);
                         intent.putExtra(EXTRA_ID_COM, id_com);
@@ -119,7 +121,7 @@ public class AddClientActivity extends AppCompatActivity {
                     } else
                     {
                         Toast.makeText(AddClientActivity.this, "Echec dans la création du client", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
                 }
             });
 

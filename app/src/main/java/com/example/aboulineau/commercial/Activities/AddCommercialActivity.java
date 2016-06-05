@@ -37,27 +37,29 @@ public class AddCommercialActivity extends AppCompatActivity {
                 String mail   = mailCom.getText().toString();
                 String tel    = telCom.getText().toString();
                 String login  = loginCom.getText().toString();
-                // Si l'identifiant existe déjà
-                if (db_com.loginExist(login))
+                // Si identifiant vide
+                if (login.isEmpty())
                 {
-                    Toast.makeText(AddCommercialActivity.this, "L\'identifiant \'"+login+"\' existe déjà.", Toast.LENGTH_SHORT).show();
-                } else
-                {
-                    db_com.getThisCom().setNom(nom);
-                    db_com.getThisCom().setPrenom(prenom);
-                    db_com.getThisCom().setMail(mail);
-                    db_com.getThisCom().setTel(tel);
-                    db_com.getThisCom().setLogin(login);
-                    long res = db_com.insert();
-                    // Si la création du compte est un succès
-                    if (res > 0)
-                    {
-                        Toast.makeText(AddCommercialActivity.this, "Création du compte réussie avec succès !", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddCommercialActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    } else
-                    {
-                        Toast.makeText(AddCommercialActivity.this, "Echec de la création du compte.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCommercialActivity.this, "Veulliez saisir un identifiant..", Toast.LENGTH_SHORT).show();
+                }else {
+                    // Si l'identifiant existe déjà
+                    if (db_com.loginExist(login)) {
+                        Toast.makeText(AddCommercialActivity.this, "L\'identifiant \'" + login + "\' existe déjà.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        db_com.getThisCom().setNom(nom);
+                        db_com.getThisCom().setPrenom(prenom);
+                        db_com.getThisCom().setMail(mail);
+                        db_com.getThisCom().setTel(tel);
+                        db_com.getThisCom().setLogin(login);
+                        long res = db_com.insert();
+                        // Si la création du compte est un succès
+                        if (res > 0) {
+                            Toast.makeText(AddCommercialActivity.this, "Création du compte réussie avec succès !", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddCommercialActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(AddCommercialActivity.this, "Echec de la création du compte.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
