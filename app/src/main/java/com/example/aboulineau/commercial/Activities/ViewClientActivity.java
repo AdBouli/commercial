@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.example.aboulineau.commercial.Models.Appels;
 import com.example.aboulineau.commercial.Models.Clients;
-import com.example.aboulineau.commercial.Models.Commerciaux;
 import com.example.aboulineau.commercial.Models.Entities.Appel;
-import com.example.aboulineau.commercial.Models.Entities.Client;
 import com.example.aboulineau.commercial.Models.Entities.Rdv;
 import com.example.aboulineau.commercial.Models.Rdvs;
 import com.example.aboulineau.commercial.R;
@@ -27,6 +25,8 @@ public class ViewClientActivity extends AppCompatActivity
 
     final String EXTRA_ID_COM    = "idCom";
     final String EXTRA_ID_CLIENT = "idClient";
+    final String EXTRA_ID_RDV    = "idRdv";
+    final String EXTRA_ID_APPEL  = "idAppel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,13 @@ public class ViewClientActivity extends AppCompatActivity
         final ListView ListRdvs     = (ListView)findViewById(R.id.listRdvs);
         final ListView ListAppels   = (ListView)findViewById(R.id.listAppels);
 
-        final Button BtnModifierClient = (Button)findViewById(R.id.btnModifyClient);
+        final Button BtnModifierClient = (Button)findViewById(R.id.btnDelRdv);
         final Button BtnCreerRdv       = (Button)findViewById(R.id.btnCreerRdv);
         final Button BtnCreerAppel     = (Button)findViewById(R.id.btnCreerAppel);
 
-        final Clients db_client  = new Clients(this);
-        final Rdvs db_rdv        = new Rdvs(this);
-        final Appels db_appel    = new Appels(this);
+        final Clients db_client = new Clients(this);
+        final Rdvs db_rdv       = new Rdvs(this);
+        final Appels db_appel   = new Appels(this);
 
         Intent intent = getIntent();
 
@@ -95,7 +95,7 @@ public class ViewClientActivity extends AppCompatActivity
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ViewClientActivity.this, ViewRdvActivity.class);
                     intent.putExtra(EXTRA_ID_COM, id_com);
-                    intent.putExtra(EXTRA_ID_CLIENT, rdvs.get((int) id).getId());
+                    intent.putExtra(EXTRA_ID_RDV, rdvs.get((int) id).getId());
                     startActivity(intent);
                 }
             });
@@ -121,7 +121,7 @@ public class ViewClientActivity extends AppCompatActivity
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ViewClientActivity.this, ViewAppelActivity.class);
                     intent.putExtra(EXTRA_ID_COM, id_com);
-                    intent.putExtra(EXTRA_ID_CLIENT, appels.get((int) id).getId());
+                    intent.putExtra(EXTRA_ID_APPEL, appels.get((int) id).getId());
                     startActivity(intent);
                 }
             });

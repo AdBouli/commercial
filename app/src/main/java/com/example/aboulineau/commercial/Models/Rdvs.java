@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class Rdvs extends Database
 {
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "clientele.db";
 
     protected Rdv thisRdv;
 
@@ -34,11 +32,18 @@ public class Rdvs extends Database
         thisRdv = new Rdv();
     }
 
+    /**
+     * @return thisRdv
+     */
     public Rdv getThisRdv()
     {
         return thisRdv;
     }
 
+    /**
+     * requète insert into
+     * @return id du nouveau rdv
+     */
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -54,6 +59,10 @@ public class Rdvs extends Database
         return res;
     }
 
+    /**
+     * requète update
+     * @return id du rdv modifié
+     */
     public int update()
     {
         ContentValues values = new ContentValues();
@@ -96,7 +105,7 @@ public class Rdvs extends Database
      * @param id id du rendez-vous à chargé
      * @return True si rendez-vous chargé, false sinon
      */
-    public Boolean setById(int id) {
+    public Boolean getById(int id) {
         read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom WHERE idRdv = " + id, null);
         Boolean result = (c.getCount() == 1);
@@ -112,6 +121,11 @@ public class Rdvs extends Database
         return result;
     }
 
+    /**
+     * @param idClient id du client à chercher
+     * @param idCom id du commercial à chercher
+     * @return Liste des rdv recherchés
+     */
     public List<Rdv> select(int idClient, int idCom)
     {
         read();
@@ -134,6 +148,10 @@ public class Rdvs extends Database
         return rdvs;
     }
 
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des rdv client des 30 derniers jours avec un avis au dessus de la moyenne
+     */
     public List<Rdv> selectMeilleursRdvsClientMois(int idCom)
     {
         Calendar dateRef = Calendar.getInstance();
@@ -160,6 +178,10 @@ public class Rdvs extends Database
         return rdvs;
     }
 
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des rdv prospect des 30 derniers jours avec un avis au dessus de la moyenne
+     */
     public List<Rdv> selectMeilleursRdvsProspectMois(int idCom)
     {
         Calendar dateRef = Calendar.getInstance();
@@ -168,6 +190,66 @@ public class Rdvs extends Database
         String dateMois = dateRef.toString();
         read();
         Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom WHERE comRdv = " + idCom + " AND typeClient = 0  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "'AND avisRdvl > (SELECT avg(avisRdv) FROM rdvs WHERE comRdv = 0 AND typeClient = 0 AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
+        ArrayList<Rdv> rdvs = new ArrayList<>();
+        if (c.getCount() > 0)
+        {
+            c.moveToFirst();
+            do
+            {
+                ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+                client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
+                com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+                rdv = new Rdv(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
+                rdvs.add(rdv);
+            } while (c.moveToNext());
+        }
+        c.close();
+        close();
+        return rdvs;
+    }
+
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des rdv clients des 30 derniers jours avec un avis en dessous de la moyenne
+     */
+    public List<Rdv> selectMoinsBonsRdvsClientMois(int idCom)
+    {
+        Calendar dateRef = Calendar.getInstance();
+        dateRef.add(Calendar.MONTH, -1);
+        String dateAjd = Calendar.getInstance().toString();
+        String dateMois = dateRef.toString();
+        read();
+        Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom WHERE comRdv = " + idCom + " AND typeClient = 1  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "' AND avisRdv < (SELECT avg(avisRdv) FROM rdvs WHERE comRdv = 0 AND typeClient = 1  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
+        ArrayList<Rdv> rdvs = new ArrayList<>();
+        if (c.getCount() > 0)
+        {
+            c.moveToFirst();
+            do
+            {
+                ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+                client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
+                com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+                rdv = new Rdv(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
+                rdvs.add(rdv);
+            } while (c.moveToNext());
+        }
+        c.close();
+        close();
+        return rdvs;
+    }
+
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des rdv prospect des 30 derniers jours avec un avis en dessous de la moyenne
+     */
+    public List<Rdv> selectMoinsBonsRdvsProspectMois(int idCom)
+    {
+        Calendar dateRef = Calendar.getInstance();
+        dateRef.add(Calendar.MONTH, -1);
+        String dateAjd = Calendar.getInstance().toString();
+        String dateMois = dateRef.toString();
+        read();
+        Cursor c = DB.rawQuery("SELECT * FROM rdvs INNER JOIN clients ON clientRdv = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comRdv = idCom WHERE comRdv = " + idCom + " AND typeClient = 0  AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "'AND avisRdvl < (SELECT avg(avisRdv) FROM rdvs WHERE comRdv = 0 AND typeClient = 0 AND dateRdv BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Rdv> rdvs = new ArrayList<>();
         if (c.getCount() > 0)
         {

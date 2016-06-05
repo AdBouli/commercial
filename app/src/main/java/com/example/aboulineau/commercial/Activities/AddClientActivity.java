@@ -28,7 +28,7 @@ public class AddClientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.up_client);
+        setContentView(R.layout.add_client);
 
         final EditText NomField       = (EditText)findViewById(R.id.nomClientField);
         final EditText PrenomField    = (EditText)findViewById(R.id.prenomClientField);

@@ -22,8 +22,6 @@ import java.util.List;
  */
 public class Appels extends Database
 {
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "clientele.db";
 
     protected Appel thisAppel;
 
@@ -35,11 +33,18 @@ public class Appels extends Database
         thisAppel = new Appel();
     }
 
+    /**
+     * @return thisAppel
+     */
     public Appel getThisAppel()
     {
         return thisAppel;
     }
 
+    /**
+     * Requète insert into
+     * @return id du nouvel appel
+     */
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -55,6 +60,10 @@ public class Appels extends Database
         return res;
     }
 
+    /**
+     * Requète update
+     * @return id de l'appel modifié
+     */
     public int update()
     {
         ContentValues values = new ContentValues();
@@ -95,6 +104,10 @@ public class Appels extends Database
         return appels;
     }
 
+    /**
+     * @param id de l'appel a charger
+     * @return true si chargé, false sinon
+     */
     public Boolean getById(int id)
     {
         read();
@@ -112,6 +125,11 @@ public class Appels extends Database
         return result;
     }
 
+    /**
+     * @param idClient id du client à chercher
+     * @param idCom id du commercial à chercher
+     * @return List d'appel
+     */
     public List<Appel> select(int idClient, int idCom)
     {
         read();
@@ -134,6 +152,10 @@ public class Appels extends Database
         return appels;
     }
 
+    /**
+     * @param idCom id du commercial à chercher
+     * @return liste des appels client des 30 derniers jours avec un avis au dessus de la moyenne
+     */
     public List<Appel> selectMeilleursAppelsClientMois(int idCom)
     {
         Calendar dateRef = Calendar.getInstance();
@@ -160,6 +182,10 @@ public class Appels extends Database
         return appels;
     }
 
+    /**
+     * @param idCom
+     * @return liste des appels prospect des 30 derniers jours avec un avis au dessus de la moyenne
+     */
     public List<Appel> selectMeilleursAppelsProspectMois(int idCom)
     {
         Calendar dateRef = Calendar.getInstance();
@@ -168,6 +194,66 @@ public class Appels extends Database
         String dateMois = dateRef.toString();
         read();
         Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd +"' AND avisAppel > (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
+        ArrayList<Appel> appels = new ArrayList<>();
+        if (c.getCount() > 0)
+        {
+            c.moveToFirst();
+            do
+            {
+                ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+                client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
+                com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+                appel = new Appel(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
+                appels.add(appel);
+            } while (c.moveToNext());
+        }
+        c.close();
+        close();
+        return appels;
+    }
+
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des appels client des 30 derniers jours avec un avis en dessous de la moyenne
+     */
+    public List<Appel> selectMoinsBonsAppelsClientMois(int idCom)
+    {
+        Calendar dateRef = Calendar.getInstance();
+        dateRef.add(Calendar.MONTH, -1);
+        String dateAjd = Calendar.getInstance().toString();
+        String dateMois = dateRef.toString();
+        read();
+        Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "' AND avisAppel < (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
+        ArrayList<Appel> appels = new ArrayList<>();
+        if (c.getCount() > 0)
+        {
+            c.moveToFirst();
+            do
+            {
+                ville = new Ville(c.getInt(16), c.getString(17), c.getString(18));
+                client = new Client(c.getInt(7), c.getString(8), c.getString(9), c.getString(10), c.getString(11), c.getString(12), ville, c.getInt(14), com);
+                com = new Commercial(c.getInt(19), c.getString(20), c.getString(21), c.getString(22), c.getString(23), c.getString(24));
+                appel = new Appel(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4), client, com);
+                appels.add(appel);
+            } while (c.moveToNext());
+        }
+        c.close();
+        close();
+        return appels;
+    }
+
+    /**
+     * @param idCom id du commercial à charger
+     * @return liste des appels prospect des 30 derniers jours avec un avis en dessous de la moyenne
+     */
+    public List<Appel> selectMoinsBonsAppelsProspectMois(int idCom)
+    {
+        Calendar dateRef = Calendar.getInstance();
+        dateRef.add(Calendar.MONTH, -1);
+        String dateAjd = Calendar.getInstance().toString();
+        String dateMois = dateRef.toString();
+        read();
+        Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd +"' AND avisAppel < (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Appel> appels = new ArrayList<>();
         if (c.getCount() > 0)
         {

@@ -44,6 +44,8 @@ public class ListClientsActivity extends AppCompatActivity
         final EditText DepField      = (EditText)findViewById(R.id.depField);
         final Button BtnSearchClient = (Button)findViewById(R.id.searchClient);
         final ListView ListClients   = (ListView)findViewById(R.id.listClients);
+        final Button BtnCreerClient  = (Button)findViewById(R.id.creerClient);
+        final Button BtnStats        = (Button)findViewById(R.id.btnStat);
 
         final Commerciaux db_com = new Commerciaux(this);
 
@@ -75,21 +77,39 @@ public class ListClientsActivity extends AppCompatActivity
                 }
             });
 
+            BtnSearchClient.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent = new Intent(ListClientsActivity.this, SearchClientsActivity.class);
+                    intent.putExtra(EXTRA_ID_COM, db_com.getThisCom().getId());
+                    intent.putExtra(EXTRA_SEARCH_FIELD, SearchField.getText().toString());
+                    intent.putExtra(EXTRA_CHECK_CLIENT, ClientCheck.isChecked());
+                    intent.putExtra(EXTRA_CHECK_PROSPECT, ProspectCheck.isChecked());
+                    intent.putExtra(EXTRA_DEP_FIELD, DepField.getText().toString());
+                    startActivity(intent);
+                }
+            });
+
+            BtnStats.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent = new Intent(ListClientsActivity.this, StatsActivity.class);
+                    intent.putExtra(EXTRA_ID_COM, id_com);
+                    startActivity(intent);
+                }
+            });
+
+            BtnCreerClient.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent = new Intent(ListClientsActivity.this, AddClientActivity.class);
+                    intent.putExtra(EXTRA_ID_COM, id_com);
+                    startActivity(intent);
+                }
+            });
+
         }
 
 
 
-        BtnSearchClient.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(ListClientsActivity.this, SearchClientsActivity.class);
-                intent.putExtra(EXTRA_ID_COM, db_com.getThisCom().getId());
-                intent.putExtra(EXTRA_SEARCH_FIELD, SearchField.getText().toString());
-                intent.putExtra(EXTRA_CHECK_CLIENT, ClientCheck.isChecked());
-                intent.putExtra(EXTRA_CHECK_PROSPECT, ProspectCheck.isChecked());
-                intent.putExtra(EXTRA_DEP_FIELD, DepField.getText().toString());
-                startActivity(intent);
-            }
-        });
+
 
     }
 }

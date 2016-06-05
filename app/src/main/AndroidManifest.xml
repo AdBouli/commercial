@@ -27,7 +27,8 @@
         <activity android:name=".Activities.AddAppelActivity" />
         <activity android:name=".Activities.AddRdvActivity" />
         <activity android:name=".Activities.UpClientActivity" />
-        <activity android:name=".Activities.AddClientActivity"></activity>
+        <activity android:name=".Activities.AddClientActivity" />
+        <activity android:name=".Activities.StatsActivity"></activity>
     </application>
 
 </manifest>

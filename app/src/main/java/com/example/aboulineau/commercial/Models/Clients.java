@@ -18,9 +18,6 @@ import java.util.List;
  */
 public class Clients extends Database
 {
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "clientele.db";
-
     protected Client thisClient;
 
     public Clients (Context context)
@@ -31,11 +28,18 @@ public class Clients extends Database
         thisClient = new Client();
     }
 
+    /**
+     * @return thisClient
+     */
     public Client getThisClient()
     {
         return thisClient;
     }
 
+    /**
+     * requète insert into
+     * @return id du nouveau client
+     */
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -52,6 +56,10 @@ public class Clients extends Database
         return res;
     }
 
+    /**
+     * Requète update
+     * @return id du client modifié
+     */
     public int update()
     {
         ContentValues values = new ContentValues();
@@ -68,6 +76,9 @@ public class Clients extends Database
         return res;
     }
 
+    /**
+     * @return Collection de tous les clients
+     */
     public List<Client> selectAll()
     {
         read();
@@ -113,6 +124,12 @@ public class Clients extends Database
 
     /**
      * Recherche dans la base de donnée
+     * @param nom_prenom
+     * @param departement
+     * @param idCom
+     * @param siClient
+     * @param siProspect
+     * @return Liste des clients recherchés
      */
     public List<Client> search(String nom_prenom, String departement, int idCom, Boolean siClient, Boolean siProspect)
     {

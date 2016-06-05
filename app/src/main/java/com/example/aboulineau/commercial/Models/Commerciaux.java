@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class Commerciaux extends Database
 {
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "clientele.db";
 
     protected Commercial thisCom;
 
@@ -32,11 +30,18 @@ public class Commerciaux extends Database
         thisCom = new Commercial();
     }
 
+    /**
+     * @return thisCom
+     */
     public Commercial getThisCom()
     {
         return thisCom;
     }
 
+    /**
+     * requète insert into
+     * @return id du nouveau commercial
+     */
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -51,6 +56,10 @@ public class Commerciaux extends Database
         return res;
     }
 
+    /**
+     * requète update
+     * @return id du commercial modifié
+     */
     public int update()
     {
         ContentValues values = new ContentValues();

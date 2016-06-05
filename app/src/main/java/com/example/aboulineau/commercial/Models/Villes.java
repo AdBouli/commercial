@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class Villes extends Database
 {
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "clientele.db";
 
     protected Ville thisVille;
 
@@ -29,11 +27,18 @@ public class Villes extends Database
         thisVille = new Ville();
     }
 
+    /**
+     * @return thisVille
+     */
     public Ville getThisVille()
     {
         return thisVille;
     }
 
+    /**
+     * requète insert into
+     * @return id de la nouvelle ville
+     */
     public long insert()
     {
         ContentValues values = new ContentValues();
@@ -45,6 +50,10 @@ public class Villes extends Database
         return res;
     }
 
+    /**
+     * requète update
+     * @return id de la ville modifiée
+     */
     public int update()
     {
         ContentValues values = new ContentValues();

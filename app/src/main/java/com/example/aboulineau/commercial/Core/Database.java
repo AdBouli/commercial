@@ -13,6 +13,9 @@ import com.example.aboulineau.commercial.Models.Entities.Ville;
  */
 public class Database {
 
+    protected static final int DB_VERSION = 1;
+    protected static final String DB_NAME = "clientele.db";
+
     protected SQLiteDatabase DB;
     protected SQLite SQL;
     protected String table;

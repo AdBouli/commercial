@@ -41,4 +41,9 @@
     <string name="codeHint">Code postal</string>
 
     <string name="client">Client</string>
+
+    <string name="titreStat1">Meilleurs rendez-vous du mois</string>
+    <string name="titreStat2">Meilleurs appels du mois</string>
+    <string name="titreStat3">Moins bons rendez-vous du mois</string>
+    <string name="titreStat4">Moins bons appels du mois</string>
 </resources>

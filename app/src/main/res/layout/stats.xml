@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.aboulineau.commercial.Activities.StatsActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titreStat1"
+        android:id="@+id/titreStats1"
+        android:layout_marginLeft="200dp"
+        android:layout_marginStart="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titreStat2"
+        android:id="@+id/titreStats2"
+        android:layout_marginRight="200dp"
+        android:layout_marginEnd="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titreStat3"
+        android:id="@+id/titreStats3"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/titreStats1"
+        android:layout_alignStart="@+id/titreStats1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/titreStat4"
+        android:id="@+id/titreStats4"
+        android:layout_alignTop="@+id/titreStats3"
+        android:layout_alignLeft="@+id/titreStats2"
+        android:layout_alignStart="@+id/titreStats2" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mRdvList"
+        android:layout_below="@+id/titreStats1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/titreStats3"
+        android:layout_alignRight="@+id/titreStats3"
+        android:layout_alignEnd="@+id/titreStats3" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mAppelList"
+        android:layout_alignTop="@+id/mRdvList"
+        android:layout_alignLeft="@+id/titreStats4"
+        android:layout_alignStart="@+id/titreStats4"
+        android:layout_above="@+id/titreStats4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nRdvList"
+        android:layout_below="@+id/titreStats3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/titreStats3"
+        android:layout_alignEnd="@+id/titreStats3" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nAppelList"
+        android:layout_alignTop="@+id/nRdvList"
+        android:layout_alignLeft="@+id/titreStats4"
+        android:layout_alignStart="@+id/titreStats4" />
+</RelativeLayout>
