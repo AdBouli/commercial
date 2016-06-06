@@ -90,6 +90,9 @@ public class SQLite extends SQLiteOpenHelper
         super(context, name, factory, version);
     }
 
+
+    private static final String ALTERS = "";
+
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_COMMERCIAUX);
@@ -108,12 +111,7 @@ public class SQLite extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         Log.w(SQLite.class.getName(), "Upgrade de la base de données");
-        db.execSQL(DROP_COMMERCIAUX);
-        db.execSQL(DROP_VILLES);
-        db.execSQL(DROP_CLIENTS);
-        db.execSQL(DROP_RDVS);
-        db.execSQL(DROP_APPELS);
-        onCreate(db);
+        db.execSQL(ALTERS);
     }
 
 

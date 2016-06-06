@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.aboulineau.commercial.Models.Clients;
+import com.example.aboulineau.commercial.Models.Entities.Client;
 import com.example.aboulineau.commercial.Models.Entities.Ville;
 import com.example.aboulineau.commercial.Models.Villes;
 import com.example.aboulineau.commercial.R;
@@ -53,6 +54,7 @@ public class AddClientActivity extends AppCompatActivity {
         for (Ville v : villes)
         {
             villeString.add(v.getNomComplet());
+            System.out.println(v.getNom());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, villeString);
         ListVilles.setAdapter(adapter);
@@ -80,8 +82,9 @@ public class AddClientActivity extends AppCompatActivity {
                     String codeV = CodeVilleField.getText().toString();
                     db_ville.getThisVille().setNom(nomV);
                     db_ville.getThisVille().setCode(codeV);
-                    if (db_ville.insert() > 0) {
-                        VilleSelected.setId(db_ville.getThisVille().getId());
+                    long id_ville = db_ville.insert();
+                    if (id_ville > 0) {
+                        VilleSelected.setId((int) id_ville);
                         VilleField.setText(db_ville.getThisVille().getNomComplet());
                     } else {
                         Toast.makeText(AddClientActivity.this, "Echec dans la création de la ville", Toast.LENGTH_SHORT).show();
@@ -97,31 +100,34 @@ public class AddClientActivity extends AppCompatActivity {
                     String telC = TelField.getText().toString();
                     String mailC = MailField.getText().toString();
                     String adresseC = AdresseField.getText().toString();
-                    db_client.getThisClient().setNom(nomC);
-                    db_client.getThisClient().setPrenom(prenomC);
-                    db_client.getThisClient().setTel(telC);
-                    db_client.getThisClient().setMail(mailC);
-                    db_client.getThisClient().setMail(adresseC);
-                    if (ClientCheckBox.isChecked())
+                    if (nomC.isEmpty() || prenomC.isEmpty() || telC.isEmpty() || mailC.isEmpty() || adresseC.isEmpty() || VilleSelected.getId() == 0)
                     {
-                        db_client.getThisClient().setType(1);
+                        Toast.makeText(AddClientActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     } else
                     {
-                        db_client.getThisClient().setType(0);
+                        db_client.getThisClient().setNom(nomC);
+                        db_client.getThisClient().setPrenom(prenomC);
+                        db_client.getThisClient().setTel(telC);
+                        db_client.getThisClient().setMail(mailC);
+                        db_client.getThisClient().setAdresse(adresseC);
+                        db_client.getThisClient().getVille().setId(VilleSelected.getId());
+                        if (ClientCheckBox.isChecked()) {
+                            db_client.getThisClient().setType(1);
+                        } else
+                        {
+                            db_client.getThisClient().setType(0);
+                        }
+                        db_client.getThisClient().getCom().setId(id_com);
+                        if (db_client.insert() > 0)
+                        {
+                            Intent intent = new Intent(AddClientActivity.this, ListClientsActivity.class);
+                            intent.putExtra(EXTRA_ID_COM, id_com);
+                            startActivity(intent);
+                        } else
+                        {
+                            Toast.makeText(AddClientActivity.this, "Echec dans la création du client", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    db_client.getThisClient().getVille().setId(VilleSelected.getId());
-                    db_client.getThisClient().getCom().setId(id_com);
-
-                    Toast.makeText(AddClientActivity.this, Long.toString(db_client.insert()), Toast.LENGTH_SHORT).show();
-                    /*if (db_client.insert() > 0)
-                    {
-                        Intent intent = new Intent(AddClientActivity.this, ListClientsActivity.class);
-                        intent.putExtra(EXTRA_ID_COM, id_com);
-                        startActivity(intent);
-                    } else
-                    {
-                        Toast.makeText(AddClientActivity.this, "Echec dans la création du client", Toast.LENGTH_SHORT).show();
-                    }*/
                 }
             });
 

@@ -51,14 +51,12 @@ public class Appel extends Model
 
     public String getDate ()
     {
-        String dateCut[] = dateAppel.split("-");
-        return dateCut[2] + "/" + dateCut[1] + "/" + dateCut[0];
+        return dateAppel;
     }
 
     public void setDate (String date)
     {
-        String[] dateCut = date.split("/");
-        dateAppel = dateCut[2] + "-" + dateCut[1] + "-" + dateCut[0];
+        dateAppel = date;
     }
 
     public String getHeure ()
@@ -88,6 +86,16 @@ public class Appel extends Model
 
     public void setAvis (int avis)
     {
+        if (avis > 10)
+        {
+            avis = 10;
+        } else
+        {
+            if (avis < 0)
+            {
+                avis = 0;
+            }
+        }
         avisAppel = avis;
     }
 

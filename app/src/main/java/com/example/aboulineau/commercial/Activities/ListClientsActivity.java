@@ -48,6 +48,7 @@ public class ListClientsActivity extends AppCompatActivity
         final Button BtnStats        = (Button)findViewById(R.id.btnStat);
 
         final Commerciaux db_com = new Commerciaux(this);
+        final Clients db_client  = new Clients(this);
 
         Intent intent = getIntent();
 
@@ -57,8 +58,7 @@ public class ListClientsActivity extends AppCompatActivity
             db_com.getById(id_com);
             Titre.setText(db_com.getThisCom().getNomComplet() + " - " + db_com.getThisCom().getMail() + " - " + db_com.getThisCom().getTel());
             // Affiche la liste de ses clients
-            db_com.setClients();
-            final List<Client> clients = db_com.getThisCom().getClients();
+            final List<Client> clients = db_client.select(id_com);
             List<String> clientsString = new ArrayList<>();
             for (Client client : clients)
             {

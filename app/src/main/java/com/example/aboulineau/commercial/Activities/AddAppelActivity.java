@@ -47,21 +47,31 @@ public class AddAppelActivity extends AppCompatActivity
 
             BtnCreerAppel.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    db_appel.getThisAppel().setDate(DateField.getText().toString());
-                    db_appel.getThisAppel().setHeure(HeureField.getText().toString());
-                    db_appel.getThisAppel().setNotes(NotesField.getText().toString());
-                    db_appel.getThisAppel().setAvis(Integer.parseInt(AvisField.getText().toString()));
-                    db_appel.getThisAppel().getClient().setId(id_client);
-                    db_appel.getThisAppel().getCom().setId(id_com);
-                    if (db_appel.insert() > 0)
+                    String dateA = DateField.getText().toString();
+                    String heureA = HeureField.getText().toString();
+                    String notesA = NotesField.getText().toString();
+                    String avisA = AvisField.getText().toString();
+                    if (dateA.isEmpty()  || heureA.isEmpty() || notesA.isEmpty() || avisA.isEmpty())
                     {
-                        Intent intent = new Intent(AddAppelActivity.this, ViewClientActivity.class);
-                        intent.putExtra(EXTRA_ID_COM, id_com);
-                        intent.putExtra(EXTRA_ID_CLIENT, id_client);
-                        startActivity(intent);
+                        Toast.makeText(AddAppelActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     } else
                     {
-                        Toast.makeText(AddAppelActivity.this, "Echec de la création de l\'appel.", Toast.LENGTH_SHORT).show();
+                        db_appel.getThisAppel().setDate(dateA);
+                        db_appel.getThisAppel().setHeure(heureA);
+                        db_appel.getThisAppel().setNotes(notesA);
+                        db_appel.getThisAppel().setAvis(Integer.parseInt(avisA));
+                        db_appel.getThisAppel().getClient().setId(id_client);
+                        db_appel.getThisAppel().getCom().setId(id_com);
+                        if (db_appel.insert() > 0)
+                        {
+                            Intent intent = new Intent(AddAppelActivity.this, ViewClientActivity.class);
+                            intent.putExtra(EXTRA_ID_COM, id_com);
+                            intent.putExtra(EXTRA_ID_CLIENT, id_client);
+                            startActivity(intent);
+                        } else
+                        {
+                            Toast.makeText(AddAppelActivity.this, "Echec de la création de l\'appel.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

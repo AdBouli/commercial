@@ -110,11 +110,13 @@ public class UpClientActivity extends AppCompatActivity
                     String prenomC = PrenomField.getText().toString();
                     String telC = TelField.getText().toString();
                     String mailC = MailField.getText().toString();
+                    String adresseC = AdresseField.getText().toString();
                     db_client.getById(id_client);
                     db_client.getThisClient().setNom(nomC);
-                    db_client.getThisClient().setPrenom(nomC);
-                    db_client.getThisClient().setTel(nomC);
-                    db_client.getThisClient().setMail(nomC);
+                    db_client.getThisClient().setPrenom(prenomC);
+                    db_client.getThisClient().setTel(telC);
+                    db_client.getThisClient().setMail(mailC);
+                    db_client.getThisClient().setAdresse(adresseC);
                     db_client.getThisClient().getVille().setId(VilleSelected.getId());
                     if (ClientCheckBox.isChecked())
                     {

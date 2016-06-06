@@ -80,7 +80,7 @@ public class Commerciaux extends Database
     public ArrayList<Commercial> selectAll()
     {
         read();
-        Cursor c = DB.rawQuery("SELECT * FROM commerciaux", null);
+        Cursor c = DB.rawQuery("SELECT * FROM commerciaux;", null);
         ArrayList<Commercial> commerciaux = new ArrayList<>();
         if (c.getCount() > 0)
         {
@@ -133,33 +133,6 @@ public class Commerciaux extends Database
         c.close();
         close();
         return result;
-    }
-
-    /**
-     * Charge les clients du commercial dans sa collection de client this
-     * @return int Le nombre de clients appartenant au commercial
-     */
-    public int setClients()
-    {
-        read();
-        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille WHERE comClient = " + thisCom.getId(), null);
-        int res = c.getCount();
-        List<Client> clients = new ArrayList<>();
-        if (res > 0)
-        {
-            c.moveToFirst();
-            do
-            {
-                ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
-                com.setId(c.getInt(8));
-                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
-                clients.add(client);
-            } while (c.moveToNext());
-        }
-        thisCom.setClients(clients);
-        c.close();
-        close();
-        return res;
     }
 
     /**

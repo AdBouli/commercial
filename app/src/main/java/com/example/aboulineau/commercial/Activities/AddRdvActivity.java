@@ -47,21 +47,31 @@ public class AddRdvActivity extends AppCompatActivity
 
             BtnCreerRdv.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    db_rdv.getThisRdv().setDate(DateField.getText().toString());
-                    db_rdv.getThisRdv().setHeure(HeureField.getText().toString());
-                    db_rdv.getThisRdv().setNotes(NotesField.getText().toString());
-                    db_rdv.getThisRdv().setAvis(Integer.parseInt(AvisField.getText().toString()));
-                    db_rdv.getThisRdv().getClient().setId(id_client);
-                    db_rdv.getThisRdv().getCom().setId(id_com);
-                    if (db_rdv.insert() > 0)
+                    String dateR = DateField.getText().toString();
+                    String heureR = HeureField.getText().toString();
+                    String notesR = NotesField.getText().toString();
+                    String avisR = AvisField.getText().toString();
+                    if (dateR.isEmpty()  || heureR.isEmpty() || notesR.isEmpty() || avisR.isEmpty())
                     {
-                        Intent intent = new Intent(AddRdvActivity.this, ViewClientActivity.class);
-                        intent.putExtra(EXTRA_ID_COM, id_com);
-                        intent.putExtra(EXTRA_ID_CLIENT, id_client);
-                        startActivity(intent);
+                        Toast.makeText(AddRdvActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     } else
                     {
-                        Toast.makeText(AddRdvActivity.this, "Echec de la création du rendez-vous.", Toast.LENGTH_SHORT).show();
+                        db_rdv.getThisRdv().setDate(dateR);
+                        db_rdv.getThisRdv().setHeure(heureR);
+                        db_rdv.getThisRdv().setNotes(notesR);
+                        db_rdv.getThisRdv().setAvis(Integer.parseInt(avisR));
+                        db_rdv.getThisRdv().getClient().setId(id_client);
+                        db_rdv.getThisRdv().getCom().setId(id_com);
+                        if (db_rdv.insert() > 0)
+                        {
+                            Intent intent = new Intent(AddRdvActivity.this, ViewClientActivity.class);
+                            intent.putExtra(EXTRA_ID_COM, id_com);
+                            intent.putExtra(EXTRA_ID_CLIENT, id_client);
+                            startActivity(intent);
+                        } else
+                        {
+                            Toast.makeText(AddRdvActivity.this, "Echec de la création du rendez-vous.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.example.aboulineau.commercial.Core.Database;
 import com.example.aboulineau.commercial.Core.SQLite;
+import com.example.aboulineau.commercial.Models.Entities.Appel;
 import com.example.aboulineau.commercial.Models.Entities.Client;
 import com.example.aboulineau.commercial.Models.Entities.Commercial;
 import com.example.aboulineau.commercial.Models.Entities.Ville;
@@ -122,6 +123,28 @@ public class Clients extends Database
         c.close();
         close();
         return result;
+    }
+
+    /**
+     * @param idCom id du commercial à chercher
+     * @return List de client
+     */
+    public List<Client> select(int idCom) {
+        read();
+        Cursor c = DB.rawQuery("SELECT * FROM clients INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux  ON comClient = idCom WHERE comClient = " + idCom + " ORDER BY nomClient ASC;", null);
+        ArrayList<Client> clients = new ArrayList<>();
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                ville = new Ville(c.getInt(9), c.getString(10), c.getString(11));
+                com = new Commercial(c.getInt(12), c.getString(13), c.getString(14), c.getString(15), c.getString(16), c.getString(17));
+                client = new Client(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), ville, c.getInt(7), com);
+                clients.add(client);
+            } while (c.moveToNext());
+        }
+        c.close();
+        close();
+        return clients;
     }
 
     /**

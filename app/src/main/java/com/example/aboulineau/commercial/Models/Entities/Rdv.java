@@ -4,6 +4,8 @@ import com.example.aboulineau.commercial.Core.Model;
 import com.example.aboulineau.commercial.Models.Entities.Client;
 import com.example.aboulineau.commercial.Models.Entities.Commercial;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -53,14 +55,12 @@ public class Rdv extends Model
 
     public String getDate ()
     {
-        String dateCut[] = dateRdv.split("-");
-        return dateCut[2] + "/" + dateCut[1] + "/" + dateCut[0];
+        return dateRdv;
     }
 
     public void setDate (String date)
     {
-        String[] dateCut = date.split("/");
-        dateRdv = dateCut[2] + "-" + dateCut[1] + "-" + dateCut[0];
+        dateRdv = date;
     }
 
     public String getHeure ()
@@ -88,8 +88,18 @@ public class Rdv extends Model
         return avisRdv;
     }
 
-    public void setAvis (Integer avis)
+    public void setAvis (int avis)
     {
+        if (avis > 10)
+        {
+            avis = 10;
+        } else
+        {
+            if (avis < 0)
+            {
+                avis = 0;
+            }
+        }
         avisRdv = avis;
     }
 

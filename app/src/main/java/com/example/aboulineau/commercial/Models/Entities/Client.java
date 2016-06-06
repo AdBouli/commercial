@@ -31,10 +31,10 @@ public class Client extends Model
         mailClient = mail;
         adresseClient = address;
         villeClient = ville;
+        typeClient = type;
         comClient = com;
         rdvsClient = new ArrayList<>();
         appelsClient = new ArrayList<>();
-        typeClient = type;
     }
 
     public Client ()
@@ -46,10 +46,10 @@ public class Client extends Model
         mailClient = "";
         adresseClient = "";
         villeClient = new Ville();
+        typeClient = 0;
         comClient = new Commercial();
         rdvsClient = new ArrayList<>();
         appelsClient = new ArrayList<>();
-        typeClient = 0;
     }
 
     public int getId ()

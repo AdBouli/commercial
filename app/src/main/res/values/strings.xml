@@ -28,7 +28,7 @@
     <string name="addRdv">Créer rendez-vous</string>
     <string name="addAppel">Créer appel</string>
 
-    <string name="dateHint">Date (01/01/2017)</string>
+    <string name="dateHint">Date (2016&#8211;12&#8211;31)</string>
     <string name="heureHint">Heure (14:45)</string>
     <string name="notesHint">Notes</string>
     <string name="avisHint">Avis (/10)</string>

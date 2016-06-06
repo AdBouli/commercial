@@ -12,6 +12,7 @@ import com.example.aboulineau.commercial.Models.Entities.Commercial;
 import com.example.aboulineau.commercial.Models.Entities.Rdv;
 import com.example.aboulineau.commercial.Models.Entities.Ville;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -161,8 +162,11 @@ public class Appels extends Database
     {
         Calendar dateRef = Calendar.getInstance();
         dateRef.add(Calendar.MONTH, -1);
-        String dateAjd = Calendar.getInstance().toString();
-        String dateMois = dateRef.toString();
+        Date DateAjd = Calendar.getInstance().getTime();
+        Date DateMois = dateRef.getTime();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAjd = formatDate.format(DateAjd);
+        String dateMois = formatDate.format(DateMois);
         read();
         Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "' AND avisAppel > (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Appel> appels = new ArrayList<>();
@@ -191,8 +195,11 @@ public class Appels extends Database
     {
         Calendar dateRef = Calendar.getInstance();
         dateRef.add(Calendar.MONTH, -1);
-        String dateAjd = Calendar.getInstance().toString();
-        String dateMois = dateRef.toString();
+        Date DateAjd = Calendar.getInstance().getTime();
+        Date DateMois = dateRef.getTime();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAjd = formatDate.format(DateAjd);
+        String dateMois = formatDate.format(DateMois);
         read();
         Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd +"' AND avisAppel > (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Appel> appels = new ArrayList<>();
@@ -221,8 +228,11 @@ public class Appels extends Database
     {
         Calendar dateRef = Calendar.getInstance();
         dateRef.add(Calendar.MONTH, -1);
-        String dateAjd = Calendar.getInstance().toString();
-        String dateMois = dateRef.toString();
+        Date DateAjd = Calendar.getInstance().getTime();
+        Date DateMois = dateRef.getTime();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAjd = formatDate.format(DateAjd);
+        String dateMois = formatDate.format(DateMois);
         read();
         Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "' AND avisAppel < (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 1 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Appel> appels = new ArrayList<>();
@@ -251,8 +261,11 @@ public class Appels extends Database
     {
         Calendar dateRef = Calendar.getInstance();
         dateRef.add(Calendar.MONTH, -1);
-        String dateAjd = Calendar.getInstance().toString();
-        String dateMois = dateRef.toString();
+        Date DateAjd = Calendar.getInstance().getTime();
+        Date DateMois = dateRef.getTime();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAjd = formatDate.format(DateAjd);
+        String dateMois = formatDate.format(DateMois);
         read();
         Cursor c = DB.rawQuery("SELECT * FROM appels INNER JOIN clients ON clientAppel = idClient INNER JOIN villes ON villeClient = idVille INNER JOIN commerciaux ON comAppel = idCom WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd +"' AND avisAppel < (SELECT avg(avisAppel) FROM appels WHERE comAppel = " + idCom + " AND typeClient = 0 AND dateAppel BETWEEN '" + dateMois + "' AND '" + dateAjd + "')", null);
         ArrayList<Appel> appels = new ArrayList<>();

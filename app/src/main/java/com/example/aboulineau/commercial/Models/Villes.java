@@ -73,11 +73,14 @@ public class Villes extends Database
         read();
         Cursor c = DB.rawQuery("SELECT * FROM villes ORDER BY nomVille ASC", null);
         ArrayList<Ville> villes = new ArrayList<>();
-        c.moveToFirst();
-        do {
-            ville = new Ville(c.getInt(0), c.getString(1), c.getString(2));
-            villes.add(ville);
-        } while (c.moveToNext());
+        if (c.getCount() > 0)
+        {
+            c.moveToFirst();
+            do {
+                ville = new Ville(c.getInt(0), c.getString(1), c.getString(2));
+                villes.add(ville);
+            } while (c.moveToNext());
+        }
         c.close();
         close();
         return villes;
